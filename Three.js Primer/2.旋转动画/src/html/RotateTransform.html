@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>三维场景加载</title>
+    <style>
+        body {
+            margin : 0;
+            overflow : hidden; 
+            /* 隐藏窗口·区域滚动条 */
+        }
+    </style>
+    <!-- 导入three.js模块 -->
+    <script src="./three.js"></script>
+</head>
+<body>
+    <script>
+        // 创建场景对象Scene
+        var scene = new THREE.Scene();
+        // 创建网格模型
+
+        //var geometry = new THREE.SphereGeometry(60, 60, 60);
+        var geometry = new THREE.BoxGeometry(100, 100, 100);//创建立方体网格对象
+
+        //材质对象material
+        var material = new THREE.MeshLambertMaterial({ color : 0xFF0000} );
+        //网格模型对象Mesh
+        var mesh = new THREE.Mesh(geometry, material);
+        //网格模型添加到场景中
+        scene.add(mesh);
+        /**
+          *光源设置
+          *
+        */
+        
+        //点光源
+        var point = new THREE.PointLight(0xFFFFFF);
+        //点光源设置
+        point.position.set(400, 300, 300);
+        //点光源添加到场景中
+        scene.add(point);
+        //环境光
+        var ambient = new THREE.AmbientLight(0x444444);
+        /**
+         *
+         *相机设置
+        */
+        var width = window.innerWidth;//窗口宽度
+        var height = window.innerHeight;//窗口宽度
+        var k = width / height;//窗口宽高比
+        //三维场景显示范围控制系数，系数越大，显示范围越大
+        var s = 180;
+        
+        //创建相机对象
+        var camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000);
+        //设置相机位置
+        camera.position.set(200, 300, 200);
+        //设置相机方向
+        camera.lookAt(scene.position);
+
+        /**
+          *
+          *创建渲染器对象
+        */
+        var renderer = new THREE.WebGLRenderer();
+        //设置渲染区域尺寸
+        renderer.setSize(width, height);
+        //设置背景颜色
+        renderer.setClearColor(0xb9d3ff, 1);
+        //body元素中插入canvas对象
+        document.body.appendChild(renderer.domElement);
+
+        //执行渲染操作    指定场景、相机作为参数
+        renderer.render(scene, camera);
+    </script>
+</body>
+</html>
