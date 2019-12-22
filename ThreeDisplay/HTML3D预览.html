@@ -1,0 +1,2937 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@5.9.2/dist/d3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.106.2/build/three.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"
+        integrity="sha256-eQxIuR9Z5Afu5SFVtoND4dHdHygFRhueTk7mwkINjro=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.js"
+        integrity="sha256-B2A44YCanY9zaHL5nwcihGM3GiWpOE4md3COMTdAggM=" crossorigin="anonymous"></script>
+
+    <!--control-->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.106.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.106.2/examples/js/controls/EditorControls.js"></script>
+    <!--control-->
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.106.2/examples/js/WebGL.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.106.2/examples/js/renderers/Projector.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.106.2/examples/js/renderers/SVGRenderer.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r68/three.js" integrity="sha256-/r3C4Jhix//re35k5TbHvvWWjSfU4BE2y1Y8JZq0nKM=" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://gitcdn.xyz/repo/mrdoob/three.js/master/examples/js/WebGL.js"></script> -->
+    <!-- <script src="https://gitcdn.xyz/repo/mrdoob/three.js/master/examples/js/renderers/SVGRenderer.js"></script>-->
+    <script
+        src="https://rawcdn.githack.com/fanyonglong/DxFrameworks/2938558914c3fcf77450bb2b2f9672450109e0bb/utility/exampleTool.js">
+    </script>
+    <meta charset="utf-8" />
+    <style>
+        .stats {
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+    </style>
+
+
+<body>
+    <!--
+    参考
+动画
+AnimationAction
+AnimationClip
+AnimationMixer
+AnimationObjectGroup
+AnimationUtils
+KeyframeTrack
+PropertyBinding
+PropertyMixer
+动画 / 轨道
+BooleanKeyframeTrack
+ColorKeyframeTrack
+NumberKeyframeTrack
+QuaternionKeyframeTrack
+StringKeyframeTrack
+VectorKeyframeTrack
+音频
+Audio
+AudioAnalyser
+AudioContext
+AudioListener
+PositionalAudio
+摄像机
+ArrayCamera
+Camera
+CubeCamera
+OrthographicCamera
+PerspectiveCamera
+StereoCamera
+常量
+Animation
+Core
+CustomBlendingEquation
+DrawModes
+Materials
+Renderer
+Textures
+核心
+BufferAttribute
+BufferGeometry
+Clock
+DirectGeometry
+EventDispatcher
+Face3
+Geometry
+InstancedBufferAttribute
+InstancedBufferGeometry
+InstancedInterleavedBuffer
+InterleavedBuffer
+InterleavedBufferAttribute
+Layers
+Object3D
+Raycaster
+Uniform
+核心 / BufferAttributes
+BufferAttribute Types
+弃用列表
+DeprecatedList
+附件
+Earcut
+ShapeUtils
+附件 / 核心
+Curve
+CurvePath
+Font
+Interpolations
+Path
+Shape
+ShapePath
+附件 / 曲线
+ArcCurve
+CatmullRomCurve3
+CubicBezierCurve
+CubicBezierCurve3
+EllipseCurve
+LineCurve
+LineCurve3
+QuadraticBezierCurve
+QuadraticBezierCurve3
+SplineCurve
+附件 / 物体
+ImmediateRenderObject
+几何体
+BoxBufferGeometry
+BoxGeometry
+CircleBufferGeometry
+CircleGeometry
+ConeBufferGeometry
+ConeGeometry
+CylinderBufferGeometry
+CylinderGeometry
+DodecahedronBufferGeometry
+DodecahedronGeometry
+EdgesGeometry
+ExtrudeBufferGeometry
+ExtrudeGeometry
+IcosahedronBufferGeometry
+IcosahedronGeometry
+LatheBufferGeometry
+LatheGeometry
+OctahedronBufferGeometry
+OctahedronGeometry
+ParametricBufferGeometry
+ParametricGeometry
+PlaneBufferGeometry
+PlaneGeometry
+PolyhedronBufferGeometry
+PolyhedronGeometry
+RingBufferGeometry
+RingGeometry
+ShapeBufferGeometry
+ShapeGeometry
+SphereBufferGeometry
+SphereGeometry
+TetrahedronBufferGeometry
+TetrahedronGeometry
+TextBufferGeometry
+TextGeometry
+TorusBufferGeometry
+TorusGeometry
+TorusKnotBufferGeometry
+TorusKnotGeometry
+TubeBufferGeometry
+TubeGeometry
+WireframeGeometry
+辅助对象
+ArrowHelper
+AxesHelper
+BoxHelper
+Box3Helper
+CameraHelper
+DirectionalLightHelper
+FaceNormalsHelper
+GridHelper
+PolarGridHelper
+PositionalAudioHelper
+HemisphereLightHelper
+PlaneHelper
+PointLightHelper
+RectAreaLightHelper
+SkeletonHelper
+SpotLightHelper
+VertexNormalsHelper
+灯光
+AmbientLight
+DirectionalLight
+HemisphereLight
+Light
+PointLight
+RectAreaLight
+SpotLight
+灯光 / 阴影
+DirectionalLightShadow
+LightShadow
+SpotLightShadow
+加载器
+AnimationLoader
+AudioLoader
+BufferGeometryLoader
+Cache
+CompressedTextureLoader
+CubeTextureLoader
+DataTextureLoader
+FileLoader
+FontLoader
+ImageBitmapLoader
+ImageLoader
+Loader
+LoaderUtils
+MaterialLoader
+ObjectLoader
+TextureLoader
+加载器 / 管理器
+DefaultLoadingManager
+LoadingManager
+材质
+LineBasicMaterial
+LineDashedMaterial
+Material
+MeshBasicMaterial
+MeshDepthMaterial
+MeshDistanceMaterial
+MeshLambertMaterial
+MeshMatcapMaterial
+MeshNormalMaterial
+MeshPhongMaterial
+MeshPhysicalMaterial
+MeshStandardMaterial
+MeshToonMaterial
+PointsMaterial
+RawShaderMaterial
+ShaderMaterial
+ShadowMaterial
+SpriteMaterial
+数学库
+Box2
+Box3
+Color
+Cylindrical
+Euler
+Frustum
+Interpolant
+Line3
+Math
+Matrix3
+Matrix4
+Plane
+Quaternion
+Ray
+Sphere
+Spherical
+Triangle
+Vector2
+Vector3
+Vector4
+数学库 / 插值
+CubicInterpolant
+DiscreteInterpolant
+LinearInterpolant
+QuaternionLinearInterpolant
+物体
+Bone
+Group
+Line
+LineLoop
+LineSegments
+LOD
+Mesh
+Points
+Skeleton
+SkinnedMesh
+Sprite
+渲染器
+WebGLMultisampleRenderTarget
+WebGLRenderer
+WebGLRenderTarget
+WebGLRenderTargetCube
+渲染器 / 着色器
+ShaderChunk
+ShaderLib
+UniformsLib
+UniformsUtils
+场景
+Fog
+FogExp2
+Scene
+纹理贴图
+CanvasTexture
+CompressedTexture
+CubeTexture
+DataTexture
+DataTexture3D
+DepthTexture
+Texture
+VideoTexture
+示例
+动画
+CCDIKSolver
+MMDAnimationHelper
+MMDPhysics
+控制
+OrbitControls
+几何体
+ConvexBufferGeometry
+ConvexGeometry
+DecalGeometry
+加载器
+BabylonLoader
+GLTFLoader
+MMDLoader
+MTLLoader
+OBJLoader
+OBJLoader2
+LoaderSupport
+PCDLoader
+PDBLoader
+SVGLoader
+TGALoader
+PRWMLoader
+物体
+Lensflare
+导出器
+GLTFExporter
+PLYExporter
+插件
+LookupTable
+QuickHull
+Face
+HalfEdge
+QuickHull
+VertexNode
+VertexList
+渲染器
+CSS2DRenderer
+CSS3DRenderer
+SVGRenderer
+实用工具
+BufferGeometryUtils
+SceneUtils
+开发者参考
+差异化支持
+Polyfills
+WebGL渲染器
+WebGLProgram
+WebGLShader
+WebGLState
+1.场景(Scene)：是物体、光源等元素的容器，可以配合 chrome 插件使用，抛出 window.scene即可实时调整 obj 的信息和材质信息。
+2.相机（Camera）：场景中的相机，代替人眼去观察，场景中只能添加一个，一般常用的是透视相机（PerspectiveCamera）
+3.物体对象（Mesh）：包括二维物体（点、线、面）、三维物体，模型等等
+4.光源（Light）：场景中的光照，如果不添加光照场景将会是一片漆黑，包括全局光、平行光、点光源等
+5.渲染器（Renderer）:场景的渲染方式，如webGL\canvas2D\Css3D。
+6.控制器(Control): 可通过键盘、鼠标控制相机的移动
+光源分类
+光源	说明
+AmbientLight	环境光，其颜色均匀的应用到场景及其所有对象上,这种光源为场景添加全局的环境光。
+    这种光没有特定的方向，不会产生阴影。通常不会把AmbientLight作为唯一的光源，
+    而是和SpotLight、DirectionalLight等光源结合使用，从而达到柔化阴影、添加全局色调的效果。
+    指定颜色时要相对保守，例如#0c0c0c。设置太亮的颜色会导致整个画面过度饱和，什么都看不清：
+PointLight	3D空间中的一个点光源，向所有方向发出光线
+SpotLight	产生圆锥形光柱的聚光灯，台灯、天花板射灯通常都属于这类光源,这种光源的使用场景最多
+    ，特别是在你需要阴影效果的时候。
+DirectionalLight	也就无限光，光线是平行的。典型的例子是日光,用于模拟遥远的，类似太阳那样的光源。
+    该光源与SpotLight的主要区别是，它不会随着距离而变暗，所有被照耀的地方获得相同的光照强度。
+HemisphereLight	特殊光源，用于创建户外自然的光线效果，
+    此光源模拟物体表面反光效果、微弱发光的天空,模拟穹顶（半球）的微弱发光效果，
+    让户外场景更加逼真。使用DirectionalLight + AmbientLight可以在某种程度上来模拟户外光线，
+    但是不够真实，因为无法体现大气层的散射效果、地面或物体的反射效果
+AreaLight	面光源，指定一个发光的区域
+LensFlare	不是光源，用于给光源添加镜头光晕效果
+材质分类
+材质	说明
+MeshBasicMaterial	基本的材质，显示为简单的颜色或者显示为线框。不考虑光线的影响
+MeshDepthMaterial	使用简单的颜色，但是颜色深度和距离相机的远近有关
+MeshNormalMaterial	基于面Geometry的法线（normals）数组来给面着色
+MeshFacematerial	容器，允许为Geometry的每一个面指定一个材质
+MeshLambertMaterial	考虑光线的影响，哑光材质
+MeshPhongMaterial	考虑光线的影响，光泽材质
+ShaderMaterial	允许使用自己的着色器来控制顶点如何被放置、像素如何被着色
+LineBasicMaterial	用于THREE.Line对象，创建彩色线条
+LineDashMaterial	用于THREE.Line对象，创建虚线条
+RawShaderMaterial	仅和THREE.BufferedGeometry联用，优化静态Geometry（顶点、面不变）的渲染
+SpriteCanvasMaterial	在针对单独的点进行渲染时用到
+SpriteMaterial	在针对单独的点进行渲染时用到
+PointCloudMaterial	在针对单独的点进行渲染时用到
+几何图形
+2D
+图形	说明
+矩形 THREE.PlaneGeometry	外观上是一个矩形 
+new THREE.PlaneGeometry(width, height, widthSegments, heightSegments);
+THREE.CircleGeometry 
+传送门	外观上是一个圆形或者扇形 
+// 半径为3的圆 
+new THREE.CircleGeometry(3, 12);
+// 半径为3的半圆
+new THREE.CircleGeometry(3, 12, 0, Math.PI);
+第三个参数和第四个分别是起始角度和结束角度，默认0-2*PI
+THREE.RingGeometry
+传送门	外观上是一个圆环或者扇环 
+new THREE.RingGeometry(innerRadius, outerRadius, thetaSegments, phiSegments, thetaStart, thetaLength)
+THREE.ShapeGeometry 
+传送门	该形状允许你创建自定义的二维图形，其操作方式类似于SVG/Canvas中的画布
+3D
+图形	说明
+THREE.BoxGeometry
+传送门	这是一个具有长宽高的盒子 
+BoxGeometry(width, height, depth, widthSegments, heightSegments, depthSegments)
+THREE.SphereGeometry 
+传送门	这是一个三维球体/不完整球体
+SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength)
+THREE. CylinderGeometry 
+传送门	可以绘制圆柱、圆筒、圆锥或者截锥
+new THREE.CylinderGeometry(radiusTop,radiusBottom,height,radialSegments,heightSegments,openEnded)
+-->
+    <script>
+        var exmapleInstance = ExampleFactory(function (example) {
+
+            return function (page) {
+                page.onChange('init', function () {
+
+                });
+                page.onChange('show', function () {
+
+                });
+                page.onChange('hide', function () {
+
+                });
+                page.onChange('refresh', function () {
+
+                });
+
+                page.callback(page);
+
+            }
+
+        });
+
+        function createCanvas(width = 800, height = 800) {
+            return d3.create('canvas').style('border', 'solid 1px #888').attr('width', width).attr('height', height);
+        }
+
+        function createSvg(width = 800, height = 800) {
+            return d3.create('svg').style('border', 'solid 1px #888').attr('width', width).attr('height', height);
+        }
+
+        function createPerspectiveCamera(width, height) {
+
+            var camera = new THREE.PerspectiveCamera(75, width / height, 1, 1000);
+            return camera;
+        }
+
+        function createOrthographicCamera(width, height) {
+            var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+            return camera;
+        }
+
+        function addPlane(scene, width, height) {
+            var geometry = new THREE.PlaneGeometry(width, height, 32);
+            var material = new THREE.MeshBasicMaterial({
+                color: 0xff0000,
+                side: THREE.DoubleSide
+            });
+            var plane = new THREE.Mesh(geometry, material);
+            scene.add(plane);
+        }
+
+        function createRenderer(options) {
+            /*
+            parameters - (可选) 该对象的属性定义了渲染器的行为。也可以完全不传参数。在所有情况下，当缺少参数时，它将采用合理的默认值。 以下是合法参数：
+            canvas - 一个供渲染器绘制其输出的canvas 它和下面的domElement属性对应。 如果没有传这个参数，会创建一个新canvas
+            context - 可用于将渲染器附加到已有的渲染环境(RenderingContext)中。默认值是null
+            precision - 着色器精度. 可以是 "highp", "mediump" 或者 "lowp". 如果设备支持，默认为"highp" . 点击here 查看"应该避免的事"
+            alpha - canvas是否包含alpha (透明度)。默认为 false
+            premultipliedAlpha - renderer是否假设颜色有 premultiplied alpha. 默认为true 
+            antialias - 是否执行抗锯齿。默认为false.
+            stencil - 绘图缓存是否有一个至少8位的模板缓存(stencil buffer)。默认为true
+            preserveDrawingBuffer -是否保留缓直到手动清除或被覆盖。 默认false.
+            powerPreference - 提示用户代理怎样的配置更适用于当前WebGL环境。 可能是"high-performance", "low-power" 或 "default"。默认是"default". 详见WebGL spec
+            depth - 绘图缓存是否有一个至少6位的深度缓存(depth buffer )。 默认是true.
+            logarithmicDepthBuffer - 是否使用对数深度缓存。如果要在单个场景中处理巨大的比例差异，就有必要使用。 默认是false。 示例：camera / logarithmicdepthbuffer
+          */
+            options = _.defaults(options, {
+                precision: 'highp',
+                alpha: false,
+                premultipliedAlpha: true,
+                antialias: false,
+                stencil: true,
+                preserveDrawingBuffer: false,
+                powerPreference: 'default',
+                depth: true,
+                logarithmicDepthBuffer: false,
+                width: 800,
+                height: 800
+            })
+            var renderer;
+            var canvas = createCanvas(width, height).node();
+            var width = options.width,
+                height = options.height;
+            if (WEBGL.isWebGL2Available() === true && false) {
+                var context = canvas.getContext('webgl2');
+                renderer = new THREE.WebGLRenderer({
+                    canvas: canvas,
+                    context: context
+                });
+            } else {
+                renderer = new THREE.WebGLRenderer({
+                    canvas: canvas
+                });
+            }
+            renderer.setSize(width, height);
+            renderer.setClearColor(0xffffff, 1);
+            renderer.clearColor();
+            return renderer;
+        }
+
+        function createSVGRenderer(options) {
+            options = _.defaults(options, {
+                width: 800,
+                height: 800
+            });
+            var renderer;
+            var canvas = options.canvas,
+                width = options.width,
+                height = options.height;
+            renderer = new THREE.SVGRenderer();
+            renderer.setSize(width, height);
+            renderer.setClearColor(0xffffff, 1);
+
+            return renderer;
+        }
+
+        function createOptionsGui(options, gui, immediately, add, descObj) {
+            var titles;
+            if (_.isPlainObject(immediately)) {
+                descObj = immediately.desc;
+                add = immediately.add;
+                titles = immediately.titles;
+                immediately = immediately.immediately;
+
+            }
+            immediately = immediately == undefined ? false : immediately;
+            var keys = Object.keys(options),
+                callback, addIsFunc = _.isFunction(add);
+            keys.forEach(function (key) {
+                var control, value = options[key],
+                    isNormal = true;
+                if (addIsFunc) {
+                    control = add(gui, key, value, options);
+                    isNormal = control === undefined ? true : false;
+                }
+                if (isNormal) {
+                    if (value && typeof value == 'string' && /^(#|rgb|hsl)/.test(value)) {
+                        control = gui.addColor(options, key)
+                    } else if (_.isPlainObject(value) && value.type == 'options') {
+                        options[key] = value.value;
+                        control = gui.add(options, key, value.options);
+                    } else if (_.isArray(value)) {
+                        options[key] = value[0];
+                        control = gui.add.apply(gui, [options, key].concat(value.slice(1)))
+                    } else {
+                        control = gui.add(options, key)
+                    }
+                }
+                if (_.isPlainObject(descObj) && _.has(descObj, key)) {
+                    control.name(descObj[key])
+                }
+                if (_.isPlainObject(titles) && _.has(titles, key)) {
+                    control.__li.firstElementChild.firstElementChild.setAttribute('title', titles[key])
+                }
+                if (!_.isFunction(value)) {
+                    control.onChange(_.partial(handlerChange, key));
+                    //control.onChange(_.debounce(_.partial(handlerChange, key),1000));
+                }
+            })
+
+            function handlerChange(name, value) {
+                if (callback) {
+                    callback(name, value, options);
+                }
+            }
+            return function (_callback) {
+                callback = _callback;
+                if (immediately) {
+                    handlerChange('*', '')
+                }
+            }
+        }
+
+        function addSceneGui(page, scene, renderer) {
+            var size = renderer.getSize(new THREE.Vector2()),
+                width = size.width,
+                height = size.height;
+            var options = {
+                background: '#fff',
+                isFog: false
+            }
+            var folder = page.operation.addFolder('Scene');
+            createOptionsGui(options, folder, {
+
+            })(change);
+            var fogGuid = folder.addFolder('fog');
+            var fogOptions = {
+
+                color: '#ddd',
+                near: 1,
+                far: 1000
+            }
+            createOptionsGui(fogOptions, fogGuid)(change);
+
+            function change(name) {
+                //设置
+                scene.background = new THREE.Color(options.background);
+                //console.log(cameraData)
+
+                if (arguments.length == 0 || name == 'isFog') {
+                    fogChange();
+                }
+            }
+
+            function fogChange() {
+                if (!options.isFog) {
+                    scene.fog = null;
+                    return;
+                }
+                scene.fog = new THREE.Fog(new THREE.Color(fogOptions.color), options.near, options.far);
+            }
+            change();
+
+        }
+
+        function addPerspectiveCameraGui(page, camera, renderer, cameraHelper) {
+            var size = renderer.getSize(new THREE.Vector2()),
+                width = size.width,
+                height = size.height;
+            var folder = page.operation.addFolder(_.uniqueId('PerspectiveCamera'));
+            /*
+            fov — 摄像机视锥体垂直视野角度
+            aspect — 摄像机视锥体长宽比
+            near — 摄像机视锥体近端面
+            far — 摄像机视锥体远端面
+            */
+            createOptionsGui({
+                fov: camera.fov,
+                aspect: camera.aspect,
+                near: camera.near,
+                far: camera.far,
+                zoom: camera.zoom,
+                focus: camera.focus
+            }, folder, {
+                immediately: false,
+                titles: {
+                    fov: '摄像机视锥体垂直视野角度',
+                    aspect: '摄像机视锥体长宽比',
+                    near: '摄像机视锥体近端面',
+                    far: '摄像机视锥体远端面',
+                    zoom: '摄像机的缩放倍数',
+                    focus: '用于立体视觉和景深效果的物体的距离'
+                }
+
+            })(function (name, value, ops) {
+                camera.fov = ops.fov;
+                camera.aspect = ops.aspect;
+                camera.near = ops.near;
+                camera.far = ops.far;
+                camera.zoom = ops.zoom;
+                camera.focus = ops.focus;
+                camera.updateProjectionMatrix();
+                if (cameraHelper) {
+                    cameraHelper.update();
+                }
+            });
+            extendObject3dGui(folder, camera)
+
+
+        }
+
+        function addRendererGui(page, renderer, renderer) {
+            var size = renderer.getSize(new THREE.Vector2()),
+                width = size.width,
+                height = size.height;
+            var options = {
+                x: 0,
+                y: 0,
+                width: width,
+                height: height,
+                physicallyCorrectLights: false
+            }
+            var folder = page.operation.addFolder('Renderer');
+            createOptionsGui(options, folder, {
+                immediately: true
+            })(function (name, value, options) {
+                renderer.physicallyCorrectLights = options.physicallyCorrectLights;
+                renderer.setSize(options.width, options.height);
+                renderer.setViewport(options.x, options.y, options.width, options.height);
+            });
+
+        }
+        // 扩展Object3d
+        function extendObject3dGui(folder, obj) {
+            // vector3
+            createOptionsGui({
+                x: obj.up.x,
+                y: obj.up.y,
+                z: obj.up.z
+            }, folder.addFolder('up(lookAt控制相机的焦点位置)'), false)(function (n, v, ops) {
+                obj.up.set(ops.x, ops.y, ops.z);
+                obj.lookAt(obj.up.clone())
+            })
+            // vector3
+            createOptionsGui({
+                x: obj.position.x,
+                y: obj.position.y,
+                z: obj.position.z
+            }, folder.addFolder('position(控制相机在整个3D环境中的位置)'), false)(function (n, v, ops) {
+                obj.position.set(ops.x, ops.y, ops.z);
+            })
+            // vector3
+            createOptionsGui({
+                x: obj.scale.x,
+                y: obj.scale.y,
+                z: obj.scale.z
+            }, folder.addFolder('scale'), false)(function (n, v, ops) {
+                obj.scale.set(ops.x, ops.y, ops.z);
+            });
+            //Euler
+            createOptionsGui({
+                x: obj.rotation.x,
+                y: obj.rotation.y,
+                z: obj.rotation.z,
+                order: {
+                    type: "options",
+                    value: obj.rotation.order,
+                    options: ['XYZ', 'YZX', 'ZXY', 'XZY']
+                }
+            }, folder.addFolder('rotation'), {
+                immediately: false,
+                titles: {
+                    order: '旋转顺序'
+                }
+            })(function (n, v, ops) {
+                obj.rotation.set(ops.x, ops.y, ops.z, ops.order);
+            })
+        }
+        // 材质
+        function addMeshMaterialGui(gui, material) {
+
+            var folder = gui.addFolder(_.uniqueId('Material'));
+            var changes = [],
+                change, options = {
+                    lights: material.lights,
+                    opacity: [1, 0, 1, 0.01],
+                    fog: material.fog,
+                    visible: material.visible
+                };
+            changes.push(function (name, v, ops) {
+                material.lights = ops.lights;
+                material.opacity = ops.opacity;
+                material.visible = ops.visible;
+            })
+            if (material instanceof THREE.MeshBasicMaterial) {
+                _.extend(options, {
+                    wireframe: material.wireframe,
+                    wireframeLinewidth: material.wireframeLinewidth,
+                    color: '#' + material.color.getHexString()
+                })
+                changes.push(function (n, v, ops) {
+                    material.wireframe = ops.wireframe;
+                    material.wireframeLinewidth = ops.wireframeLinewidth;
+                    material.color.set(ops.color);
+                })
+            }
+            if (material instanceof THREE.MeshNormalMaterial) {
+                _.extend(options, {
+                    wireframe: material.wireframe,
+                    wireframeLinewidth: material.wireframeLinewidth
+                });
+                changes.push(function (n, v, ops) {
+                    material.wireframe = ops.wireframe;
+                    material.wireframeLinewidth = ops.wireframeLinewidth;
+
+                })
+            }
+
+            change = function (name, value, ops) {
+                changes.forEach(function (fn) {
+                    fn(name, value, ops);
+                })
+            }
+            createOptionsGui(options, folder, {
+                immediately: false,
+                titles: {
+                    fog: '材质是否受雾影响',
+                    lights: '材质是否受到光照的影响',
+                    wireframe: '将几何体渲染为线框'
+
+                }
+            })(change);
+
+            return folder;
+        }
+
+        // 物体
+        function addMeshGui(gui, mesh) {
+
+            var folder = gui.addFolder(_.uniqueId('Mesh'));
+            extendObject3dGui(folder, mesh)
+            createOptionsGui({
+                castShadow: false
+            }, folder)(function (n, v, ops) {
+                mesh.castShadow = ops.castShadow;
+            });
+
+            return folder;
+        }
+
+        function addBoxGeometryGui(gui, gemotry, mesh) {
+            var folder = gui.addFolder(_.uniqueId('BoxGeometry')),
+                gemotryParameters = gemotry.parameters;
+            createOptionsGui({
+                width: gemotryParameters.width || 1,
+                height: gemotryParameters.height || 1,
+                depth: gemotryParameters.depth || 1,
+                widthSegments: gemotryParameters.widthSegments || 1,
+                heightSegments: gemotryParameters.heightSegments || 1,
+                depthSegments: gemotryParameters.depthSegments || 1
+            }, gui, {
+                titles: {
+                    width: '宽度',
+                    widthSegments: '宽度的分段数',
+                    heightSegments: '高度的分段数',
+                    depthSegments: '深度的分段数'
+                }
+            })(function (name, value, ops) {
+                mesh.geometry.dispose();
+                mesh.geometry = new THREE.BoxGeometry(ops.width, ops.height, ops.depth, ops.widthSegments, ops
+                    .heightSegments, ops.depthSegments)
+
+            });
+
+            return folder;
+        }
+
+        function createBoxGeometryFactory(scene, camera, page, container) {
+
+            var raycaster = new THREE.Raycaster();
+
+            createOptionsGui({
+                addBoxGeometry: function () {
+                    addGeometry();
+                }
+            }, page.operation)
+
+            var boxs = [],
+                current, prevItem;
+
+            function addGeometry() {
+
+                var geometry = new THREE.BoxGeometry(100, 100, 1);
+                var material = new THREE.MeshBasicMaterial({
+                    color: 0xffff00
+                });
+                var mesh = new THREE.Mesh(geometry, material)
+                scene.add(mesh);
+                var materialFolder = addMeshBasicMaterialGui(page.operation, material);
+                var meshFolder = addMeshGui(page.operation, mesh);
+
+                materialFolder.hide();
+                meshFolder.hide();
+
+                boxs.push({
+                    mesh: mesh,
+                    folder: {
+                        show: function () {
+                            meshFolder.show();
+                            materialFolder.show();
+                        },
+                        hide: function () {
+                            meshFolder.hide();
+                            materialFolder.hide();
+                        }
+                    }
+                });
+            }
+
+            container.addEventListener('click', function (e) {
+                var rect = container.getBoundingClientRect();
+                var xy = [event.clientX - rect.left - container.clientLeft, event.clientY - rect.top - container
+                    .clientTop
+                ];
+
+                // 将鼠标位置归一化为设备坐标。x 和 y 方向的取值范围是 (-1 to +1)
+                var mouse = {};
+                mouse.x = (xy[0] / container.width) * 2 - 1;
+                mouse.y = -(xy[1] / container.height) * 2 + 1;
+
+                var box3 = new THREE.Box3(),
+                    g;
+
+                //
+                // 通过摄像机和鼠标位置更新射线
+                raycaster.setFromCamera(mouse, camera);
+                var intersects = raycaster.intersectObjects(scene.children);
+                console.log(intersects.length)
+                if ((g = _.find(boxs, function (b) {
+                        //box3.setFromObject(b.geometry);
+                        //  return box3.containsPoint(vec3);
+                        return _.some(intersects, _.matchesProperty('object.uuid', b.mesh.uuid))
+                    }))) {
+                    if (current && current !== g) {
+                        current.folder.hide();
+                    }
+                    current = g;
+                    current.folder.show();
+                } else {
+                    if (current) {
+                        current.folder.hide();
+                        current = null;
+                    }
+
+                }
+            })
+
+        }
+
+        function createSphereBufferGeometry() {
+            var options = {
+                radius: 1, // — 球体半径，默认为1。
+                widthSegments: 8, // — 水平分段数（沿着经线分段），最小值为3，默认值为8。
+                heightSegments: 6, // — 垂直分段数（沿着纬线分段），最小值为2，默认值为6。
+                phiStart: 0, // — 指定水平（经线）起始角度，默认值为0。。
+                phiLength: Math.PI * 2, // — 指定水平（经线）扫描角度的大小，默认值为 Math.PI * 2。
+                thetaStart: 0, // — 指定垂直（纬线）起始角度，默认值为0。
+                thetaLength: Math.PI // — 指定垂直（纬线）扫描角度大小，默认值为 Math.PI。
+            }
+            var geometry = new THREE.SphereBufferGeometry(o.radius, o.widthSegments, o.heightSegments); // 几何体
+            var material = new THREE.MeshLambertMaterial({
+                color: 0xff0000
+            }); //材质
+        }
+
+        function resizeRendererToDisplaySize(renderer) {
+            const canvas = renderer.domElement;
+            const pixelRatio = window.devicePixelRatio;
+            const width = canvas.clientWidth * pixelRatio | 0;
+            const height = canvas.clientHeight * pixelRatio | 0;
+            const needResize = canvas.width !== width || canvas.height !== height;
+            if (needResize) {
+                renderer.setSize(width, height, false);
+            }
+            return needResize;
+        }
+        exmapleInstance.addExample('path', function (page) {
+            var width = 800,
+                height = 600;
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+            camera.position.x = 200;
+            camera.position.z = 400;
+            var renderer = createRenderer({
+                width: width,
+                height: height
+            });
+            page.el.appendChild(renderer.domElement);
+            //addPerspectiveCameraGui(page, camera,renderer)
+
+            // const controls = new THREE.OrbitControls(camera, renderer.domElement)
+            // controls.enableDamping = true
+            // controls.dampingFactor = 0.25;
+            // controls.enableZoom = false;
+
+
+            function createEmptyCirlce(x, y, r) {
+                var path = new THREE.Path();
+                path.arc(x, y, r, 0, Math.PI * 2);
+                var points = path.getPoints();
+                var geometry = new THREE.BufferGeometry().setFromPoints(points);
+                var material = new THREE.LineBasicMaterial({
+                    color: 0xff0000,
+                    linewidth: 10,
+                    linecap: 'round', //ignored by WebGLRenderer
+                    linejoin: 'round' //ignored by WebGLRenderer
+                });
+                var line = new THREE.Line(geometry, material);
+                scene.add(line);
+            }
+
+            function createCirlce(x, y, r) {
+                var shape = new THREE.Shape();
+                shape.arc(x, y, r, 0, Math.PI * 2);
+                /*
+                curveSegments — int，曲线上点的数量，默认值是12。
+                steps — int，用于沿着挤出样条的深度细分的点的数量，默认值为1。
+                depth — float，挤出的形状的深度，默认值为100。
+                bevelEnabled — bool，对挤出的形状应用是否斜角，默认值为true。
+                bevelThickness — float，设置原始形状上斜角的厚度。默认值为6。
+                bevelSize — float。斜角与原始形状轮廓之间的延伸距离，默认值为bevelThickness-2。
+                bevelSegments — int。斜角的分段层数，默认值为3。
+                extrudePath — THREE.CurvePath对象。一条沿着被挤出形状的三维样条线。
+                UVGenerator — Object。提供了UV生成器函数的对象。
+                */
+                var extrudeSettings = {
+                    steps: 1,
+                    depth: 16,
+                    bevelEnabled: true,
+                    bevelThickness: 1,
+                    bevelSize: 1,
+                    bevelSegments: 1
+                };
+
+                var geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+                var material = new THREE.MeshBasicMaterial({
+                    color: 0xff0000
+                });
+                var mesh = new THREE.Mesh(geometry, material);
+                scene.add(mesh);
+            }
+
+            function createShapeCirlce(x, y, r) {
+                var shape = new THREE.Shape();
+                shape.arc(x, y, r, 0, Math.PI * 2);
+
+                var geometry = new THREE.ShapeGeometry(shape);
+                var material = new THREE.MeshBasicMaterial({
+                    color: 0xff0000
+                });
+                var mesh = new THREE.Mesh(geometry, material);
+                scene.add(mesh);
+            }
+
+            createEmptyCirlce(100, 100, 40);
+
+            createCirlce(250, 100, 40);
+            createShapeCirlce(400, 100, 40);
+
+
+
+            function render() {
+                renderer.render(scene, camera);
+            }
+            var timer = d3.timer(render)
+            page.onChange('show', function () {
+                timer.restart(render);
+            });
+            page.onChange('hide', function () {
+                timer.stop();
+            });
+        });
+
+        function initGrid(scene) {
+            // 网格的边长是1000，每个小网格的边长是50
+            var helper = new THREE.GridHelper(800, 50, 0x0000ff, 0x808080);
+            scene.add(helper);
+            //红色代表 X 轴. 绿色代表 Y 轴. 蓝色代表 Z 轴.
+            var axesHelper = new THREE.AxesHelper(5);
+            scene.add(axesHelper);
+
+            // var sphere = new THREE.SphereGeometry();
+            // var object = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( 0xff0000 ) );
+            // var box = new THREE.BoxHelper( object, 0xffff00 );
+            // scene.add( box );
+        }
+        exmapleInstance.addExample('几何体Geometry', function (page) {
+            var width = 800,
+                height = 600;
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+            // camera.position.y=100;
+            camera.position.z = 400;
+            var helperCamera2 = new THREE.CameraHelper(camera);
+            scene.add(helperCamera2);
+            var renderer = createRenderer({
+                width: width,
+                height: height
+            });
+            page.el.appendChild(renderer.domElement);
+            addPerspectiveCameraGui(page, camera, renderer, helperCamera2);
+            addSceneGui(page, scene, renderer);
+            addRendererGui(page, renderer, renderer);
+            // createBoxGeometryFactory(scene, camera, page, renderer.domElement)
+            // initGrid(scene);
+            var geometry = new THREE.BoxGeometry(100, 100, 100);
+            for (var i = 0; i < geometry.faces.length; i += 2) {
+                var hex = Math.random() * 0xffffff;
+                geometry.faces[i].color.setHex(hex);
+                geometry.faces[i + 1].color.setHex(hex);
+
+            }
+
+
+
+            //MeshNormalMaterial
+            var material = new THREE.MeshNormalMaterial();
+            var mesh = new THREE.Mesh(geometry, material)
+            scene.add(mesh);
+            addBoxGeometryGui(page.operation, geometry, mesh);
+            addMeshMaterialGui(page.operation, material);
+            addMeshGui(page.operation, mesh);
+
+            var speed = 0;
+            createOptionsGui({
+                speed: [0, 0, 1, 0.01]
+            }, page.operation)(function (n, v, ops) {
+                speed = ops.speed;
+            })
+
+            function render() {
+                mesh.rotation.x += speed;
+                mesh.rotation.y += speed;
+                renderer.render(scene, camera);
+
+            }
+            var timer = d3.timer(render)
+            page.onChange('show', function () {
+                timer.restart(render);
+            });
+            page.onChange('hide', function () {
+                timer.stop();
+            });
+        })
+        exmapleInstance.addExample('svgRender', function (page) {
+            var width = 800,
+                height = 600;
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera(75, width / height, 1, 1000);
+            var renderer = createSVGRenderer({
+                width: width,
+                height: height
+            });
+            page.el.appendChild(renderer.domElement);
+
+
+
+            var geometry = new THREE.BoxGeometry(100, 100, 100);
+            var material = new THREE.MeshBasicMaterial({
+                color: 0x00ff00
+            });
+            var cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+            geometry.ro
+            var r = 0;
+
+            function render() {
+                renderer.render(scene, camera);
+                // geometry.rotateX(r);
+                r += 0.01;
+                cube.rotation.x = r;
+            }
+
+            var timer = d3.timer(render)
+            page.onChange('show', function () {
+                timer.restart(render);
+            });
+            page.onChange('hide', function () {
+                timer.stop();
+            });
+
+        })
+        exmapleInstance.addExample('ShapePath', function (page) {
+            var width = 800,
+                height = 600;
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera(75, width / height, 1, 1000);
+            var renderer = createRenderer({
+                width: width,
+                height: height
+            });
+
+
+            var path = new THREE.ShapePath();
+
+            path.moveTo(100, 100);
+            path.lineTo(200, 100);
+
+            var points = path.toShapes(true, true);
+
+            var geometry = new THREE.BufferGeometry().setFromPoints(points);
+            var material = new THREE.LineBasicMaterial({
+                color: 0xff0000
+            });
+
+            var line = new THREE.Line(geometry, material);
+            scene.add(line);
+
+            function render() {
+                renderer.render(scene, camera);
+            }
+            var timer = d3.timer(render)
+            page.onChange('show', function () {
+                timer.restart(render);
+            });
+            page.onChange('hide', function () {
+                timer.stop();
+            });
+        })
+        exmapleInstance.addExample('gemotry', function (create, page) {
+            var width = 800,
+                height = 600;
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera(75, width / height, 1, 1000);
+            var renderer = createRenderer({
+                width: width,
+                height: height
+            });
+
+
+
+
+            function render() {
+                renderer.render(scene, camera);
+            }
+            var timer = d3.timer(render)
+            page.onChange('show', function () {
+                timer.restart(render);
+            });
+            page.onChange('hide', function () {
+                timer.stop();
+            });
+        });
+
+        exmapleInstance.addExample('Scene场景', function (page) {
+
+
+            function main() {
+                const canvas = createCanvas(800, 600).node();
+
+                const renderer = new THREE.WebGLRenderer({
+                    canvas
+                });
+                const gui = page.operation;
+                page.el.appendChild(renderer.domElement)
+                const fov = 40;
+                const aspect = 2; // the canvas default
+                const near = 0.1;
+                const far = 1000;
+                const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+                camera.position.set(0, 50, 0);
+                camera.up.set(0, 0, 1);
+                camera.lookAt(0, 0, 0);
+
+                const scene = new THREE.Scene();
+
+                {
+                    const color = 0xFFFFFF;
+                    const intensity = 3;
+                    const light = new THREE.PointLight(color, intensity);
+                    scene.add(light);
+                }
+
+                const objects = [];
+
+                const radius = 1;
+                const widthSegments = 6;
+                const heightSegments = 6;
+                const sphereGeometry = new THREE.SphereBufferGeometry(
+                    radius, widthSegments, heightSegments);
+
+                const solarSystem = new THREE.Object3D();
+                scene.add(solarSystem);
+                objects.push(solarSystem);
+
+                const sunMaterial = new THREE.MeshPhongMaterial({
+                    emissive: 0xFFFF00
+                });
+                const sunMesh = new THREE.Mesh(sphereGeometry, sunMaterial);
+                sunMesh.scale.set(5, 5, 5);
+                solarSystem.add(sunMesh);
+                objects.push(sunMesh);
+
+                const earthOrbit = new THREE.Object3D();
+                earthOrbit.position.x = 10;
+                solarSystem.add(earthOrbit);
+                objects.push(earthOrbit);
+
+                const earthMaterial = new THREE.MeshPhongMaterial({
+                    color: 0x2233FF,
+                    emissive: 0x112244
+                });
+                const earthMesh = new THREE.Mesh(sphereGeometry, earthMaterial);
+                earthOrbit.add(earthMesh);
+                objects.push(earthMesh);
+
+                const moonOrbit = new THREE.Object3D();
+                moonOrbit.position.x = 2;
+                earthOrbit.add(moonOrbit);
+
+                const moonMaterial = new THREE.MeshPhongMaterial({
+                    color: 0x888888,
+                    emissive: 0x222222
+                });
+                const moonMesh = new THREE.Mesh(sphereGeometry, moonMaterial);
+                moonMesh.scale.set(.5, .5, .5);
+                moonOrbit.add(moonMesh);
+                objects.push(moonMesh);
+
+                // Turns both axes and grid visible on/off
+                // dat.GUI requires a property that returns a bool
+                // to decide to make a checkbox so we make a setter
+                // can getter for `visible` which we can tell dat.GUI
+                // to look at.
+                class AxisGridHelper {
+                    constructor(node, units = 10) {
+                        const axes = new THREE.AxesHelper();
+                        axes.material.depthTest = false;
+                        axes.renderOrder = 2; // after the grid
+                        node.add(axes);
+
+                        const grid = new THREE.GridHelper(units, units);
+                        grid.material.depthTest = false;
+                        grid.renderOrder = 1;
+                        node.add(grid);
+
+                        this.grid = grid;
+                        this.axes = axes;
+                        this.visible = false;
+                    }
+                    get visible() {
+                        return this._visible;
+                    }
+                    set visible(v) {
+                        this._visible = v;
+                        this.grid.visible = v;
+                        this.axes.visible = v;
+                    }
+                }
+
+                function makeAxisGrid(node, label, units) {
+                    const helper = new AxisGridHelper(node, units);
+                    gui.add(helper, 'visible').name(label);
+                }
+
+                makeAxisGrid(solarSystem, 'solarSystem', 26);
+                makeAxisGrid(sunMesh, 'sunMesh');
+                makeAxisGrid(earthOrbit, 'earthOrbit');
+                makeAxisGrid(earthMesh, 'earthMesh');
+                makeAxisGrid(moonMesh, 'moonMesh');
+
+                function resizeRendererToDisplaySize(renderer) {
+                    const canvas = renderer.domElement;
+                    const width = canvas.clientWidth;
+                    const height = canvas.clientHeight;
+                    const needResize = canvas.width !== width || canvas.height !== height;
+                    if (needResize) {
+                        renderer.setSize(width, height, false);
+                    }
+                    return needResize;
+                }
+
+                function render(time) {
+                    time *= 0.001;
+
+                    if (resizeRendererToDisplaySize(renderer)) {
+                        const canvas = renderer.domElement;
+                        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                        camera.updateProjectionMatrix();
+                    }
+
+                    objects.forEach((obj) => {
+                        obj.rotation.y = time;
+                    });
+
+                    renderer.render(scene, camera);
+
+                    requestAnimationFrame(render);
+                }
+
+                requestAnimationFrame(render);
+            }
+
+            main();
+
+
+
+
+        });
+
+        function addStyle(css) {
+            var style = document.createElement('style');
+
+            style.innerText = css;
+
+            document.getElementsByTagName('head')[0].appendChild(style)
+        }
+        exmapleInstance.addExample('PerspectiveCamera(透视相机)', function (page) {
+
+
+            addStyle(`#c {
+            width: 100%;
+            height: 100%;
+            display: block;
+            }
+            .split {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            }
+            .split>div {
+            width: 100%;
+            height: 100%;
+            }
+            `)
+            /* global THREE, dat */
+            page.el.style.width = '800px';
+            page.el.style.height = '600px';
+            page.el.style.position = 'relative';
+            page.el.innerHTML = `<canvas id="c" ></canvas>
+    <div class="split">
+       <div id="view1" tabindex="1"></div>
+       <div id="view2" tabindex="2"></div>
+    </div>`;
+
+            function main() {
+                const canvas = document.querySelector('#c');
+                const view1Elem = document.querySelector('#view1');
+                const view2Elem = document.querySelector('#view2');
+                const renderer = new THREE.WebGLRenderer({
+                    canvas
+                });
+
+                const fov = 45;
+                const aspect = 2; // the canvas default
+                const near = 5;
+                const far = 100;
+                const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+                camera.position.set(0, 10, 20);
+
+                const cameraHelper = new THREE.CameraHelper(camera);
+
+                class MinMaxGUIHelper {
+                    constructor(obj, minProp, maxProp, minDif) {
+                        this.obj = obj;
+                        this.minProp = minProp;
+                        this.maxProp = maxProp;
+                        this.minDif = minDif;
+                    }
+                    get min() {
+                        return this.obj[this.minProp];
+                    }
+                    set min(v) {
+                        this.obj[this.minProp] = v;
+                        this.obj[this.maxProp] = Math.max(this.obj[this.maxProp], v + this.minDif);
+                    }
+                    get max() {
+                        return this.obj[this.maxProp];
+                    }
+                    set max(v) {
+                        this.obj[this.maxProp] = v;
+                        this.min = this.min; // this will call the min setter
+                    }
+                }
+
+                const gui = page.operation;
+                gui.add(camera, 'fov', 1, 180);
+                const minMaxGUIHelper = new MinMaxGUIHelper(camera, 'near', 'far', 0.1);
+                gui.add(minMaxGUIHelper, 'min', 0.1, 50, 0.1).name('near');
+                gui.add(minMaxGUIHelper, 'max', 0.1, 50, 0.1).name('far');
+
+                const controls = new THREE.OrbitControls(camera, view1Elem);
+                controls.target.set(0, 5, 0);
+                controls.update();
+
+                const camera2 = new THREE.PerspectiveCamera(
+                    60, // fov
+                    2, // aspect
+                    0.1, // near
+                    500, // far
+                );
+                camera2.position.set(40, 10, 30);
+                camera2.lookAt(0, 5, 0);
+
+                const controls2 = new THREE.OrbitControls(camera2, view2Elem);
+                controls2.target.set(0, 5, 0);
+                controls2.update();
+
+                const scene = new THREE.Scene();
+                scene.background = new THREE.Color('black');
+                scene.add(cameraHelper);
+
+                {
+                    const planeSize = 40;
+
+                    const loader = new THREE.TextureLoader();
+                    const texture = loader.load(
+                        'https://threejsfundamentals.org/threejs/resources/images/checker.png');
+                    texture.wrapS = THREE.RepeatWrapping;
+                    texture.wrapT = THREE.RepeatWrapping;
+                    texture.magFilter = THREE.NearestFilter;
+                    const repeats = planeSize / 2;
+                    texture.repeat.set(repeats, repeats);
+
+                    const planeGeo = new THREE.PlaneBufferGeometry(planeSize, planeSize);
+                    const planeMat = new THREE.MeshPhongMaterial({
+                        map: texture,
+                        side: THREE.DoubleSide,
+                    });
+                    const mesh = new THREE.Mesh(planeGeo, planeMat);
+                    mesh.rotation.x = Math.PI * -.5;
+                    scene.add(mesh);
+                } {
+                    const cubeSize = 4;
+                    const cubeGeo = new THREE.BoxBufferGeometry(cubeSize, cubeSize, cubeSize);
+                    const cubeMat = new THREE.MeshPhongMaterial({
+                        color: '#8AC'
+                    });
+                    const mesh = new THREE.Mesh(cubeGeo, cubeMat);
+                    mesh.position.set(cubeSize + 1, cubeSize / 2, 0);
+                    scene.add(mesh);
+                } {
+                    const sphereRadius = 3;
+                    const sphereWidthDivisions = 32;
+                    const sphereHeightDivisions = 16;
+                    const sphereGeo = new THREE.SphereBufferGeometry(sphereRadius, sphereWidthDivisions,
+                        sphereHeightDivisions);
+                    const sphereMat = new THREE.MeshPhongMaterial({
+                        color: '#CA8'
+                    });
+                    const mesh = new THREE.Mesh(sphereGeo, sphereMat);
+                    mesh.position.set(-sphereRadius - 1, sphereRadius + 2, 0);
+                    scene.add(mesh);
+                }
+
+                {
+                    const color = 0xFFFFFF;
+                    const intensity = 1;
+                    const light = new THREE.DirectionalLight(color, intensity);
+                    light.position.set(0, 10, 0);
+                    light.target.position.set(-5, 0, 0);
+                    scene.add(light);
+                    scene.add(light.target);
+                }
+
+                function resizeRendererToDisplaySize(renderer) {
+                    const canvas = renderer.domElement;
+                    const width = canvas.clientWidth;
+                    const height = canvas.clientHeight;
+                    const needResize = canvas.width !== width || canvas.height !== height;
+                    if (needResize) {
+                        renderer.setSize(width, height, false);
+                    }
+                    return needResize;
+                }
+
+                function setScissorForElement(elem) {
+                    const canvasRect = canvas.getBoundingClientRect();
+                    const elemRect = elem.getBoundingClientRect();
+
+                    // compute a canvas relative rectangle
+                    const right = Math.min(elemRect.right, canvasRect.right) - canvasRect.left;
+                    const left = Math.max(0, elemRect.left - canvasRect.left);
+                    const bottom = Math.min(elemRect.bottom, canvasRect.bottom) - canvasRect.top;
+                    const top = Math.max(0, elemRect.top - canvasRect.top);
+
+                    const width = Math.min(canvasRect.width, right - left);
+                    const height = Math.min(canvasRect.height, bottom - top);
+
+                    // setup the scissor to only render to that part of the canvas
+                    const positiveYUpBottom = canvasRect.height - bottom;
+                    renderer.setScissor(left, positiveYUpBottom, width, height);
+                    renderer.setViewport(left, positiveYUpBottom, width, height);
+
+                    // return the aspect
+                    return width / height;
+                }
+
+                function render() {
+
+                    resizeRendererToDisplaySize(renderer);
+
+                    // turn on the scissor
+                    renderer.setScissorTest(true);
+
+                    // render the original view
+                    {
+                        const aspect = setScissorForElement(view1Elem);
+
+                        // adjust the camera for this aspect
+                        camera.aspect = aspect;
+                        camera.updateProjectionMatrix();
+                        cameraHelper.update();
+
+                        // don't draw the camera helper in the original view
+                        cameraHelper.visible = false;
+
+                        scene.background.set(0x000000);
+
+                        // render
+                        renderer.render(scene, camera);
+                    }
+
+                    // render from the 2nd camera
+                    {
+                        const aspect = setScissorForElement(view2Elem);
+
+                        // adjust the camera for this aspect
+                        camera2.aspect = aspect;
+                        camera2.updateProjectionMatrix();
+
+                        // draw the camera helper in the 2nd view
+                        cameraHelper.visible = true;
+
+                        scene.background.set(0x000040);
+
+                        renderer.render(scene, camera2);
+                    }
+
+                    requestAnimationFrame(render);
+                }
+
+                requestAnimationFrame(render);
+            }
+
+            main();
+
+        });
+        exmapleInstance.addExample('透视2', function (page) {
+            'use strict';
+
+            /* global THREE, dat */
+
+            function main() {
+                const canvas = createCanvas(800, 600).node();
+                const renderer = new THREE.WebGLRenderer({
+                    canvas,
+                    logarithmicDepthBuffer: true,
+                });
+                page.el.appendChild(renderer.domElement);
+                const fov = 45;
+                const aspect = 2; // the canvas default
+                const near = 0.00001;
+                const far = 100;
+                const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+                camera.position.set(10, 6, 10);
+
+                class MinMaxGUIHelper {
+                    constructor(obj, minProp, maxProp, minDif) {
+                        this.obj = obj;
+                        this.minProp = minProp;
+                        this.maxProp = maxProp;
+                        this.minDif = minDif;
+                    }
+                    get min() {
+                        return this.obj[this.minProp];
+                    }
+                    set min(v) {
+                        this.obj[this.minProp] = v;
+                        this.obj[this.maxProp] = Math.max(this.obj[this.maxProp], v + this.minDif);
+                    }
+                    get max() {
+                        return this.obj[this.maxProp];
+                    }
+                    set max(v) {
+                        this.obj[this.maxProp] = v;
+                        this.min = this.min; // this will call the min setter
+                    }
+                }
+
+                function updateCamera() {
+                    camera.updateProjectionMatrix();
+                }
+
+                const gui = page.operation;
+                gui.add(camera, 'fov', 1, 180).onChange(updateCamera);
+                const minMaxGUIHelper = new MinMaxGUIHelper(camera, 'near', 'far', 0.1);
+                gui.add(minMaxGUIHelper, 'min', 0.00001, 50, 0.00001).name('near').onChange(updateCamera);
+                gui.add(minMaxGUIHelper, 'max', 0.1, 50, 0.1).name('far').onChange(updateCamera);
+
+                const controls = new THREE.OrbitControls(camera, canvas);
+                controls.target.set(0, 5, 0);
+                controls.update();
+
+                const scene = new THREE.Scene();
+                scene.background = new THREE.Color('black');
+
+                {
+                    const planeSize = 40;
+
+                    const loader = new THREE.TextureLoader();
+                    const texture = loader.load(
+                        'https://threejsfundamentals.org/threejs/resources/images/checker.png');
+                    texture.wrapS = THREE.RepeatWrapping;
+                    texture.wrapT = THREE.RepeatWrapping;
+                    texture.magFilter = THREE.NearestFilter;
+                    const repeats = planeSize / 2;
+                    texture.repeat.set(repeats, repeats);
+
+                    const planeGeo = new THREE.PlaneBufferGeometry(planeSize, planeSize);
+                    const planeMat = new THREE.MeshPhongMaterial({
+                        map: texture,
+                        side: THREE.DoubleSide,
+                    });
+                    const mesh = new THREE.Mesh(planeGeo, planeMat);
+                    mesh.rotation.x = Math.PI * -.5;
+                    scene.add(mesh);
+                } {
+                    const sphereRadius = 3;
+                    const sphereWidthDivisions = 32;
+                    const sphereHeightDivisions = 16;
+                    const sphereGeo = new THREE.SphereBufferGeometry(sphereRadius, sphereWidthDivisions,
+                        sphereHeightDivisions);
+                    const numSpheres = 20;
+                    for (let i = 0; i < numSpheres; ++i) {
+                        const sphereMat = new THREE.MeshPhongMaterial();
+                        sphereMat.color.setHSL(i * .73, 1, 0.5);
+                        const mesh = new THREE.Mesh(sphereGeo, sphereMat);
+                        mesh.position.set(-sphereRadius - 1, sphereRadius + 2, i * sphereRadius * -2.2);
+                        scene.add(mesh);
+                    }
+                }
+
+                {
+                    const color = 0xFFFFFF;
+                    const intensity = 1;
+                    const light = new THREE.DirectionalLight(color, intensity);
+                    light.position.set(0, 10, 0);
+                    light.target.position.set(-5, 0, 0);
+                    scene.add(light);
+                    scene.add(light.target);
+                }
+
+                function resizeRendererToDisplaySize(renderer) {
+                    const canvas = renderer.domElement;
+                    const width = canvas.clientWidth;
+                    const height = canvas.clientHeight;
+                    const needResize = canvas.width !== width || canvas.height !== height;
+                    if (needResize) {
+                        renderer.setSize(width, height, false);
+                    }
+                    return needResize;
+                }
+
+                function render() {
+
+                    if (resizeRendererToDisplaySize(renderer)) {
+                        const canvas = renderer.domElement;
+                        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                        camera.updateProjectionMatrix();
+                    }
+
+                    renderer.render(scene, camera);
+
+                    requestAnimationFrame(render);
+                }
+
+                requestAnimationFrame(render);
+            }
+
+            main();
+
+        })
+
+        exmapleInstance.addExample('OrthographicCamera', function (page) {
+
+            addStyle(`#c2 {
+            width: 100%;
+            height: 100%;
+            display: block;
+            }
+            .split {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            }
+            .split>div {
+            width: 100%;
+            height: 100%;
+            }
+            `)
+            /* global THREE, dat */
+            page.el.style.width = '800px';
+            page.el.style.height = '600px';
+            page.el.style.position = 'relative';
+            page.el.innerHTML = `<canvas id="c2" ></canvas>
+    <div class="split">
+       <div id="view12" tabindex="1"></div>
+       <div id="view22" tabindex="2"></div>
+    </div>`;
+            /* global THREE, dat */
+
+            function main() {
+                const canvas = document.querySelector('#c2');
+                const view1Elem = document.querySelector('#view12');
+                const view2Elem = document.querySelector('#view22');
+                const renderer = new THREE.WebGLRenderer({
+                    canvas
+                });
+
+                const size = 1;
+                const near = 5;
+                const far = 50;
+                const camera = new THREE.OrthographicCamera(-size, size, size, -size, near, far);
+                camera.zoom = 0.2;
+                camera.position.set(0, 10, 20);
+
+                const cameraHelper = new THREE.CameraHelper(camera);
+
+                class MinMaxGUIHelper {
+                    constructor(obj, minProp, maxProp, minDif) {
+                        this.obj = obj;
+                        this.minProp = minProp;
+                        this.maxProp = maxProp;
+                        this.minDif = minDif;
+                    }
+                    get min() {
+                        return this.obj[this.minProp];
+                    }
+                    set min(v) {
+                        this.obj[this.minProp] = v;
+                        this.obj[this.maxProp] = Math.max(this.obj[this.maxProp], v + this.minDif);
+                    }
+                    get max() {
+                        return this.obj[this.maxProp];
+                    }
+                    set max(v) {
+                        this.obj[this.maxProp] = v;
+                        this.min = this.min; // this will call the min setter
+                    }
+                }
+
+                const gui = new dat.GUI();
+                gui.add(camera, 'zoom', 0.01, 1, 0.01).listen();
+                const minMaxGUIHelper = new MinMaxGUIHelper(camera, 'near', 'far', 0.1);
+                gui.add(minMaxGUIHelper, 'min', 0.1, 50, 0.1).name('near');
+                gui.add(minMaxGUIHelper, 'max', 0.1, 50, 0.1).name('far');
+
+                const controls = new THREE.OrbitControls(camera, view1Elem);
+                controls.target.set(0, 5, 0);
+                controls.update();
+
+                const camera2 = new THREE.PerspectiveCamera(
+                    60, // fov
+                    2, // aspect
+                    0.1, // near
+                    500, // far
+                );
+                camera2.position.set(16, 28, 40);
+                camera2.lookAt(0, 5, 0);
+
+                const controls2 = new THREE.OrbitControls(camera2, view2Elem);
+                controls2.target.set(0, 5, 0);
+                controls2.update();
+
+                const scene = new THREE.Scene();
+                scene.background = new THREE.Color('black');
+                scene.add(cameraHelper);
+
+                {
+                    const planeSize = 40;
+
+                    const loader = new THREE.TextureLoader();
+                    const texture = loader.load(
+                        'https://threejsfundamentals.org/threejs/resources/images/checker.png');
+                    texture.wrapS = THREE.RepeatWrapping;
+                    texture.wrapT = THREE.RepeatWrapping;
+                    texture.magFilter = THREE.NearestFilter;
+                    const repeats = planeSize / 2;
+                    texture.repeat.set(repeats, repeats);
+
+                    const planeGeo = new THREE.PlaneBufferGeometry(planeSize, planeSize);
+                    const planeMat = new THREE.MeshPhongMaterial({
+                        map: texture,
+                        side: THREE.DoubleSide,
+                    });
+                    const mesh = new THREE.Mesh(planeGeo, planeMat);
+                    mesh.rotation.x = Math.PI * -.5;
+                    scene.add(mesh);
+                } {
+                    const cubeSize = 4;
+                    const cubeGeo = new THREE.BoxBufferGeometry(cubeSize, cubeSize, cubeSize);
+                    const cubeMat = new THREE.MeshPhongMaterial({
+                        color: '#8AC'
+                    });
+                    const mesh = new THREE.Mesh(cubeGeo, cubeMat);
+                    mesh.position.set(cubeSize + 1, cubeSize / 2, 0);
+                    scene.add(mesh);
+                } {
+                    const sphereRadius = 3;
+                    const sphereWidthDivisions = 32;
+                    const sphereHeightDivisions = 16;
+                    const sphereGeo = new THREE.SphereBufferGeometry(sphereRadius, sphereWidthDivisions,
+                        sphereHeightDivisions);
+                    const sphereMat = new THREE.MeshPhongMaterial({
+                        color: '#CA8'
+                    });
+                    const mesh = new THREE.Mesh(sphereGeo, sphereMat);
+                    mesh.position.set(-sphereRadius - 1, sphereRadius + 2, 0);
+                    scene.add(mesh);
+                }
+
+                {
+                    const color = 0xFFFFFF;
+                    const intensity = 1;
+                    const light = new THREE.DirectionalLight(color, intensity);
+                    light.position.set(0, 10, 0);
+                    light.target.position.set(-5, 0, 0);
+                    scene.add(light);
+                    scene.add(light.target);
+                }
+
+                function resizeRendererToDisplaySize(renderer) {
+                    const canvas = renderer.domElement;
+                    const width = canvas.clientWidth;
+                    const height = canvas.clientHeight;
+                    const needResize = canvas.width !== width || canvas.height !== height;
+                    if (needResize) {
+                        renderer.setSize(width, height, false);
+                    }
+                    return needResize;
+                }
+
+                function setScissorForElement(elem) {
+                    const canvasRect = canvas.getBoundingClientRect();
+                    const elemRect = elem.getBoundingClientRect();
+
+                    // compute a canvas relative rectangle
+                    const right = Math.min(elemRect.right, canvasRect.right) - canvasRect.left;
+                    const left = Math.max(0, elemRect.left - canvasRect.left);
+                    const bottom = Math.min(elemRect.bottom, canvasRect.bottom) - canvasRect.top;
+                    const top = Math.max(0, elemRect.top - canvasRect.top);
+
+                    const width = Math.min(canvasRect.width, right - left);
+                    const height = Math.min(canvasRect.height, bottom - top);
+
+                    // setup the scissor to only render to that part of the canvas
+                    const positiveYUpBottom = canvasRect.height - bottom;
+                    renderer.setScissor(left, positiveYUpBottom, width, height);
+                    renderer.setViewport(left, positiveYUpBottom, width, height);
+
+                    // return the aspect
+                    return width / height;
+                }
+
+                function render() {
+
+                    resizeRendererToDisplaySize(renderer);
+
+                    // turn on the scissor
+                    renderer.setScissorTest(true);
+
+                    // render the original view
+                    {
+                        const aspect = setScissorForElement(view1Elem);
+
+                        // update the camera for this aspect
+                        camera.left = -aspect;
+                        camera.right = aspect;
+                        camera.updateProjectionMatrix();
+                        cameraHelper.update();
+
+                        // don't draw the camera helper in the original view
+                        cameraHelper.visible = false;
+
+                        scene.background.set(0x000000);
+                        renderer.render(scene, camera);
+                    }
+
+                    // render from the 2nd camera
+                    {
+                        const aspect = setScissorForElement(view2Elem);
+
+                        // update the camera for this aspect
+                        camera2.aspect = aspect;
+                        camera2.updateProjectionMatrix();
+
+                        // draw the camera helper in the 2nd view
+                        cameraHelper.visible = true;
+
+                        scene.background.set(0x000040);
+                        renderer.render(scene, camera2);
+                    }
+
+                    requestAnimationFrame(render);
+                }
+
+                requestAnimationFrame(render);
+            }
+
+            main();
+
+        })
+
+        exmapleInstance.addExample('坦克', function (page) {
+            'use strict';
+            addStyle(`#c3 {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+#info3 {
+  position: absolute;
+  left: 1em;
+  top: 1em;
+  background: rgba(0,0,0,.8);
+  padding: .5em;
+  color: white;
+  font-family: monospace;
+}`);
+            page.el.style.width = '800px';
+            page.el.style.height = '600px';
+            /* global THREE */
+            page.el.innerHTML = `<canvas id="c3"></canvas>
+    <div id="info3"></div>`;
+
+            function main() {
+                const canvas = document.querySelector('#c3');
+                const renderer = new THREE.WebGLRenderer({
+                    canvas: canvas
+                });
+                renderer.setClearColor(0xAAAAAA);
+                renderer.shadowMap.enabled = true;
+
+                function makeCamera(fov = 40) {
+                    const aspect = 2; // the canvas default
+                    const zNear = 0.1;
+                    const zFar = 1000;
+                    return new THREE.PerspectiveCamera(fov, aspect, zNear, zFar);
+                }
+                const camera = makeCamera();
+                camera.position.set(8, 4, 10).multiplyScalar(3);
+                camera.lookAt(0, 0, 0);
+
+                const scene = new THREE.Scene();
+
+                {
+                    const light = new THREE.DirectionalLight(0xffffff, 1);
+                    light.position.set(0, 20, 0);
+                    scene.add(light);
+                    light.castShadow = true;
+                    light.shadow.mapSize.width = 2048;
+                    light.shadow.mapSize.height = 2048;
+
+                    const d = 50;
+                    light.shadow.camera.left = -d;
+                    light.shadow.camera.right = d;
+                    light.shadow.camera.top = d;
+                    light.shadow.camera.bottom = -d;
+                    light.shadow.camera.near = 1;
+                    light.shadow.camera.far = 50;
+                    light.shadow.bias = 0.001;
+                }
+
+                {
+                    const light = new THREE.DirectionalLight(0xffffff, 1);
+                    light.position.set(1, 2, 4);
+                    scene.add(light);
+                }
+
+                const groundGeometry = new THREE.PlaneBufferGeometry(50, 50);
+                const groundMaterial = new THREE.MeshPhongMaterial({
+                    color: 0xCC8866
+                });
+                const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
+                groundMesh.rotation.x = Math.PI * -.5;
+                groundMesh.receiveShadow = true;
+                scene.add(groundMesh);
+
+                const carWidth = 4;
+                const carHeight = 1;
+                const carLength = 8;
+
+                const tank = new THREE.Object3D();
+                scene.add(tank);
+
+                const bodyGeometry = new THREE.BoxBufferGeometry(carWidth, carHeight, carLength);
+                const bodyMaterial = new THREE.MeshPhongMaterial({
+                    color: 0x6688AA
+                });
+                const bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
+                bodyMesh.position.y = 1.4;
+                bodyMesh.castShadow = true;
+                tank.add(bodyMesh);
+
+                const tankCameraFov = 75;
+                const tankCamera = makeCamera(tankCameraFov);
+                tankCamera.position.y = 3;
+                tankCamera.position.z = -6;
+                tankCamera.rotation.y = Math.PI;
+                bodyMesh.add(tankCamera);
+
+                const wheelRadius = 1;
+                const wheelThickness = .5;
+                const wheelSegments = 6;
+                const wheelGeometry = new THREE.CylinderBufferGeometry(
+                    wheelRadius, // top radius
+                    wheelRadius, // bottom radius
+                    wheelThickness, // height of cylinder
+                    wheelSegments);
+                const wheelMaterial = new THREE.MeshPhongMaterial({
+                    color: 0x888888
+                });
+                const wheelPositions = [
+                    [-carWidth / 2 - wheelThickness / 2, -carHeight / 2, carLength / 3],
+                    [carWidth / 2 + wheelThickness / 2, -carHeight / 2, carLength / 3],
+                    [-carWidth / 2 - wheelThickness / 2, -carHeight / 2, 0],
+                    [carWidth / 2 + wheelThickness / 2, -carHeight / 2, 0],
+                    [-carWidth / 2 - wheelThickness / 2, -carHeight / 2, -carLength / 3],
+                    [carWidth / 2 + wheelThickness / 2, -carHeight / 2, -carLength / 3],
+                ];
+                const wheelMeshes = wheelPositions.map((position) => {
+                    const mesh = new THREE.Mesh(wheelGeometry, wheelMaterial);
+                    mesh.position.set(...position);
+                    mesh.rotation.z = Math.PI * .5;
+                    mesh.castShadow = true;
+                    bodyMesh.add(mesh);
+                    return mesh;
+                });
+
+                const domeRadius = 2;
+                const domeWidthSubdivisions = 12;
+                const domeHeightSubdivisions = 12;
+                const domePhiStart = 0;
+                const domePhiEnd = Math.PI * 2;
+                const domeThetaStart = 0;
+                const domeThetaEnd = Math.PI * .5;
+                const domeGeometry = new THREE.SphereBufferGeometry(
+                    domeRadius, domeWidthSubdivisions, domeHeightSubdivisions,
+                    domePhiStart, domePhiEnd, domeThetaStart, domeThetaEnd);
+                const domeMesh = new THREE.Mesh(domeGeometry, bodyMaterial);
+                domeMesh.castShadow = true;
+                bodyMesh.add(domeMesh);
+                domeMesh.position.y = .5;
+
+                const turretWidth = .1;
+                const turretHeight = .1;
+                const turretLength = carLength * .75 * .2;
+                const turretGeometry = new THREE.BoxBufferGeometry(
+                    turretWidth, turretHeight, turretLength);
+                const turretMesh = new THREE.Mesh(turretGeometry, bodyMaterial);
+                const turretPivot = new THREE.Object3D();
+                turretMesh.castShadow = true;
+                turretPivot.scale.set(5, 5, 5);
+                turretPivot.position.y = .5;
+                turretMesh.position.z = turretLength * .5;
+                turretPivot.add(turretMesh);
+                bodyMesh.add(turretPivot);
+
+                const turretCamera = makeCamera();
+                turretCamera.position.y = .75 * .2;
+                turretMesh.add(turretCamera);
+
+                const targetGeometry = new THREE.SphereBufferGeometry(.5, 6, 3);
+                const targetMaterial = new THREE.MeshPhongMaterial({
+                    color: 0x00FF00,
+                    flatShading: true
+                });
+                const targetMesh = new THREE.Mesh(targetGeometry, targetMaterial);
+                const targetOrbit = new THREE.Object3D();
+                const targetElevation = new THREE.Object3D();
+                const targetBob = new THREE.Object3D();
+                targetMesh.castShadow = true;
+                scene.add(targetOrbit);
+                targetOrbit.add(targetElevation);
+                targetElevation.position.z = carLength * 2;
+                targetElevation.position.y = 8;
+                targetElevation.add(targetBob);
+                targetBob.add(targetMesh);
+
+                const targetCamera = makeCamera();
+                const targetCameraPivot = new THREE.Object3D();
+                targetCamera.position.y = 1;
+                targetCamera.position.z = -2;
+                targetCamera.rotation.y = Math.PI;
+                targetBob.add(targetCameraPivot);
+                targetCameraPivot.add(targetCamera);
+
+                // Create a sine-like wave
+                const curve = new THREE.SplineCurve([
+                    new THREE.Vector2(-10, 0),
+                    new THREE.Vector2(-5, 5),
+                    new THREE.Vector2(0, 0),
+                    new THREE.Vector2(5, -5),
+                    new THREE.Vector2(10, 0),
+                    new THREE.Vector2(5, 10),
+                    new THREE.Vector2(-5, 10),
+                    new THREE.Vector2(-10, -10),
+                    new THREE.Vector2(-15, -8),
+                    new THREE.Vector2(-10, 0),
+                ]);
+
+                const points = curve.getPoints(50);
+                const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                const material = new THREE.LineBasicMaterial({
+                    color: 0xff0000
+                });
+                const splineObject = new THREE.Line(geometry, material);
+                splineObject.rotation.x = Math.PI * .5;
+                splineObject.position.y = 0.05;
+                scene.add(splineObject);
+
+                function resizeRendererToDisplaySize(renderer) {
+                    const canvas = renderer.domElement;
+                    const width = canvas.clientWidth;
+                    const height = canvas.clientHeight;
+                    const needResize = canvas.width !== width || canvas.height !== height;
+                    if (needResize) {
+                        renderer.setSize(width, height, false);
+                    }
+                    return needResize;
+                }
+
+                const targetPosition = new THREE.Vector3();
+                const tankPosition = new THREE.Vector2();
+                const tankTarget = new THREE.Vector2();
+
+                const cameras = [{
+                        cam: camera,
+                        desc: 'detached camera',
+                    },
+                    {
+                        cam: turretCamera,
+                        desc: 'on turret looking at target',
+                    },
+                    {
+                        cam: targetCamera,
+                        desc: 'near target looking at tank',
+                    },
+                    {
+                        cam: tankCamera,
+                        desc: 'above back of tank',
+                    },
+                ];
+
+                const infoElem = document.querySelector('#info3');
+
+                function render(time) {
+                    time *= 0.001;
+
+                    if (resizeRendererToDisplaySize(renderer)) {
+                        const canvas = renderer.domElement;
+                        cameras.forEach((cameraInfo) => {
+                            const camera = cameraInfo.cam;
+                            camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                            camera.updateProjectionMatrix();
+                        });
+                    }
+
+                    // move target
+                    targetOrbit.rotation.y = time * .27;
+                    targetBob.position.y = Math.sin(time * 2) * 4;
+                    targetMesh.rotation.x = time * 7;
+                    targetMesh.rotation.y = time * 13;
+                    targetMaterial.emissive.setHSL(time * 10 % 1, 1, .25);
+                    targetMaterial.color.setHSL(time * 10 % 1, 1, .25);
+
+                    // move tank
+                    const tankTime = time * .05;
+                    curve.getPointAt(tankTime % 1, tankPosition);
+                    curve.getPointAt((tankTime + 0.01) % 1, tankTarget);
+                    tank.position.set(tankPosition.x, 0, tankPosition.y);
+                    tank.lookAt(tankTarget.x, 0, tankTarget.y);
+
+                    // face turret at target
+                    targetMesh.getWorldPosition(targetPosition);
+                    turretPivot.lookAt(targetPosition);
+
+                    // make the turretCamera look at target
+                    turretCamera.lookAt(targetPosition);
+
+                    // make the targetCameraPivot look at the at the tank
+                    tank.getWorldPosition(targetPosition);
+                    targetCameraPivot.lookAt(targetPosition);
+
+                    wheelMeshes.forEach((obj) => {
+                        obj.rotation.x = time * 3;
+                    });
+
+                    const camera = cameras[time * .25 % cameras.length | 0];
+                    infoElem.textContent = camera.desc;
+
+                    renderer.render(scene, camera.cam);
+
+                    requestAnimationFrame(render);
+                }
+
+                requestAnimationFrame(render);
+            }
+
+            main();
+
+        });
+
+        exmapleInstance.addExample('tree', function (page) {
+
+            /* global THREE */
+
+            function main() {
+                const canvas = createCanvas(800, 600).node();
+                const renderer = new THREE.WebGLRenderer({
+                    canvas
+                });
+                page.el.appendChild(renderer.domElement);
+                const fov = 75;
+                const aspect = 2; // the canvas default
+                const near = 0.1;
+                const far = 1000;
+                const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+                camera.position.set(0, 2, 5);
+
+                const controls = new THREE.OrbitControls(camera, canvas);
+                controls.target.set(0, 2, 0);
+                controls.minPolarAngle = 0;
+                controls.maxPolarAngle = Math.PI / 2;
+                controls.update();
+
+                const scene = new THREE.Scene();
+                scene.background = new THREE.Color('lightblue');
+
+                function addLight(position) {
+                    const color = 0xFFFFFF;
+                    const intensity = 1;
+                    const light = new THREE.DirectionalLight(color, intensity);
+                    light.position.set(...position);
+                    scene.add(light);
+                    scene.add(light.target);
+                }
+                addLight([-3, 1, 1]);
+                addLight([2, 1, .5]);
+
+                const trunkRadius = .2;
+                const trunkHeight = 1;
+                const trunkRadialSegments = 12;
+                const trunkGeometry = new THREE.CylinderBufferGeometry(
+                    trunkRadius, trunkRadius, trunkHeight, trunkRadialSegments);
+
+                const topRadius = trunkRadius * 4;
+                const topHeight = trunkHeight * 2;
+                const topSegments = 12;
+                const topGeometry = new THREE.ConeBufferGeometry(
+                    topRadius, topHeight, topSegments);
+
+                const trunkMaterial = new THREE.MeshPhongMaterial({
+                    color: 'brown'
+                });
+                const topMaterial = new THREE.MeshPhongMaterial({
+                    color: 'green'
+                });
+
+                function makeTree(x, z) {
+                    const root = new THREE.Object3D();
+                    const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+                    trunk.position.y = trunkHeight / 2;
+                    root.add(trunk);
+
+                    const top = new THREE.Mesh(topGeometry, topMaterial);
+                    top.position.y = trunkHeight + topHeight / 2;
+                    root.add(top);
+
+                    root.position.set(x, 0, z);
+                    scene.add(root);
+
+                    return root;
+                }
+
+                for (let z = -50; z <= 50; z += 10) {
+                    for (let x = -50; x <= 50; x += 10) {
+                        makeTree(x, z);
+                    }
+                }
+
+                // add ground
+                {
+                    const size = 400;
+                    const geometry = new THREE.PlaneBufferGeometry(size, size);
+                    const material = new THREE.MeshPhongMaterial({
+                        color: 'gray'
+                    });
+                    const mesh = new THREE.Mesh(geometry, material);
+                    mesh.rotation.x = Math.PI * -0.5;
+                    scene.add(mesh);
+                }
+
+                function resizeRendererToDisplaySize(renderer) {
+                    const canvas = renderer.domElement;
+                    const width = canvas.clientWidth;
+                    const height = canvas.clientHeight;
+                    const needResize = canvas.width !== width || canvas.height !== height;
+                    if (needResize) {
+                        renderer.setSize(width, height, false);
+                    }
+                    return needResize;
+                }
+
+                function render() {
+                    if (resizeRendererToDisplaySize(renderer)) {
+                        const canvas = renderer.domElement;
+                        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                        camera.updateProjectionMatrix();
+                    }
+
+                    renderer.render(scene, camera);
+
+                    requestAnimationFrame(render);
+                }
+
+                requestAnimationFrame(render);
+            }
+
+            main();
+
+        })
+        exmapleInstance.addExample('tree2', function (page) {
+            'use strict';
+
+            /* global THREE */
+
+            function main() {
+                const canvas = createCanvas(800, 600).node();
+                page.el.appendChild(canvas);
+                const renderer = new THREE.WebGLRenderer({
+                    canvas
+                });
+
+                const fov = 75;
+                const aspect = 2; // the canvas default
+                const near = 0.1;
+                const far = 1000;
+                const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+                camera.position.set(0, 2, 5);
+
+                const controls = new THREE.OrbitControls(camera, canvas);
+                controls.target.set(0, 2, 0);
+                controls.minPolarAngle = 0;
+                controls.maxPolarAngle = Math.PI / 2;
+                controls.update();
+
+                const scene = new THREE.Scene();
+
+                function addLight(position) {
+                    const color = 0xFFFFFF;
+                    const intensity = 1;
+                    const light = new THREE.DirectionalLight(color, intensity);
+                    light.position.set(...position);
+                    scene.add(light);
+                    scene.add(light.target);
+                }
+                addLight([-3, 1, 1]);
+                addLight([2, 1, .5]);
+
+                const trunkRadius = .2;
+                const trunkHeight = 1;
+                const trunkRadialSegments = 12;
+                const trunkGeometry = new THREE.CylinderBufferGeometry(
+                    trunkRadius, trunkRadius, trunkHeight, trunkRadialSegments);
+
+                const topRadius = trunkRadius * 4;
+                const topHeight = trunkHeight * 2;
+                const topSegments = 12;
+                const topGeometry = new THREE.ConeBufferGeometry(
+                    topRadius, topHeight, topSegments);
+
+                const trunkMaterial = new THREE.MeshPhongMaterial({
+                    color: 'brown'
+                });
+                const topMaterial = new THREE.MeshPhongMaterial({
+                    color: 'green'
+                });
+
+                function makeTree(x, z) {
+                    const root = new THREE.Object3D();
+                    const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+                    trunk.position.y = trunkHeight / 2;
+                    root.add(trunk);
+
+                    const top = new THREE.Mesh(topGeometry, topMaterial);
+                    top.position.y = trunkHeight + topHeight / 2;
+                    root.add(top);
+
+                    root.position.set(x, 0, z);
+                    scene.add(root);
+
+                    return root;
+                }
+
+                function frameArea(sizeToFitOnScreen, boxSize, boxCenter, camera) {
+                    const halfSizeToFitOnScreen = sizeToFitOnScreen * 0.5;
+                    const halfFovY = THREE.Math.degToRad(camera.fov * .5);
+                    const distance = halfSizeToFitOnScreen / Math.tan(halfFovY);
+
+                    camera.position.copy(boxCenter);
+                    camera.position.z += distance;
+
+                    // pick some near and far values for the frustum that
+                    // will contain the box.
+                    camera.near = boxSize / 100;
+                    camera.far = boxSize * 100;
+
+                    camera.updateProjectionMatrix();
+                }
+
+                function makeSpriteTexture(textureSize, obj) {
+                    const rt = new THREE.WebGLRenderTarget(textureSize, textureSize);
+
+                    const aspect = 1; // because the render target is square
+                    const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+
+                    scene.add(obj);
+
+                    // compute the box that contains obj
+                    const box = new THREE.Box3().setFromObject(obj);
+
+                    const boxSize = box.getSize(new THREE.Vector3());
+                    const boxCenter = box.getCenter(new THREE.Vector3());
+
+                    // set the camera to frame the box
+                    const fudge = 1.1;
+                    const size = Math.max(...boxSize.toArray()) * fudge;
+                    frameArea(size, size, boxCenter, camera);
+
+                    renderer.autoClear = false;
+                    renderer.setRenderTarget(rt);
+                    renderer.render(scene, camera);
+                    renderer.setRenderTarget(null);
+                    renderer.autoClear = true;
+
+                    scene.remove(obj);
+
+                    return {
+                        offset: boxCenter.multiplyScalar(fudge),
+                        scale: size,
+                        texture: rt.texture,
+                    };
+                }
+
+                // make billboard texture
+                const tree = makeTree(0, 0);
+                const facadeSize = 64;
+                const treeSpriteInfo = makeSpriteTexture(facadeSize, tree);
+
+                function makeSprite(spriteInfo, x, z) {
+                    const {
+                        texture,
+                        offset,
+                        scale
+                    } = spriteInfo;
+                    const mat = new THREE.SpriteMaterial({
+                        map: texture,
+                        transparent: true,
+                    });
+                    const sprite = new THREE.Sprite(mat);
+                    scene.add(sprite);
+                    sprite.position.set(
+                        offset.x + x,
+                        offset.y,
+                        offset.z + z);
+                    sprite.scale.set(scale, scale, scale);
+                }
+
+                for (let z = -50; z <= 50; z += 10) {
+                    for (let x = -50; x <= 50; x += 10) {
+                        makeSprite(treeSpriteInfo, x, z);
+                    }
+                }
+
+                scene.background = new THREE.Color('lightblue');
+
+                {
+                    const size = 400;
+                    const geometry = new THREE.PlaneBufferGeometry(size, size);
+                    const material = new THREE.MeshPhongMaterial({
+                        color: 'gray'
+                    });
+                    const mesh = new THREE.Mesh(geometry, material);
+                    mesh.rotation.x = Math.PI * -0.5;
+                    scene.add(mesh);
+                }
+
+                function resizeRendererToDisplaySize(renderer) {
+                    const canvas = renderer.domElement;
+                    const width = canvas.clientWidth;
+                    const height = canvas.clientHeight;
+                    const needResize = canvas.width !== width || canvas.height !== height;
+                    if (needResize) {
+                        renderer.setSize(width, height, false);
+                    }
+                    return needResize;
+                }
+
+                function render() {
+                    if (resizeRendererToDisplaySize(renderer)) {
+                        const canvas = renderer.domElement;
+                        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                        camera.updateProjectionMatrix();
+                    }
+
+                    renderer.render(scene, camera);
+
+                    requestAnimationFrame(render);
+                }
+
+                requestAnimationFrame(render);
+            }
+
+            main();
+
+        })
+
+        exmapleInstance.addExample('canvasTextures(纹理)', function (page) {
+            'use strict';
+
+            /* global THREE */
+
+            function main() {
+                const canvas = createCanvas(800, 600).node();
+                page.el.appendChild(canvas);
+                const renderer = new THREE.WebGLRenderer({
+                    canvas
+                });
+
+                const fov = 75;
+                const aspect = 2; // the canvas default
+                const near = 0.1;
+                const far = 5;
+                const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+                camera.position.z = 2;
+
+                const scene = new THREE.Scene();
+
+                const boxWidth = 1;
+                const boxHeight = 1;
+                const boxDepth = 1;
+                const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+
+                const cubes = []; // just an array we can use to rotate the cubes
+                const ctx = document.createElement('canvas').getContext('2d');
+                ctx.canvas.width = 256;
+                ctx.canvas.height = 256;
+                ctx.fillStyle = '#FFF';
+                ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                const texture = new THREE.CanvasTexture(ctx.canvas);
+
+                const material = new THREE.MeshBasicMaterial({
+                    map: texture,
+                });
+                const cube = new THREE.Mesh(geometry, material);
+                scene.add(cube);
+                cubes.push(cube); // add to our list of cubes to rotate
+
+                function resizeRendererToDisplaySize(renderer) {
+                    const canvas = renderer.domElement;
+                    const width = canvas.clientWidth;
+                    const height = canvas.clientHeight;
+                    const needResize = canvas.width !== width || canvas.height !== height;
+                    if (needResize) {
+                        renderer.setSize(width, height, false);
+                    }
+                    return needResize;
+                }
+
+                function randInt(min, max) {
+                    if (max === undefined) {
+                        max = min;
+                        min = 0;
+                    }
+                    return Math.random() * (max - min) + min | 0;
+                }
+
+                function drawRandomDot() {
+                    ctx.fillStyle = `#${randInt(0x1000000).toString(16).padStart(6, '0')}`;
+                    ctx.beginPath();
+
+                    const x = randInt(256);
+                    const y = randInt(256);
+                    const radius = randInt(10, 64);
+                    ctx.arc(x, y, radius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                function render(time) {
+                    time *= 0.001;
+
+                    if (resizeRendererToDisplaySize(renderer)) {
+                        const canvas = renderer.domElement;
+                        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                        camera.updateProjectionMatrix();
+                    }
+
+                    drawRandomDot();
+                    texture.needsUpdate = true;
+
+                    cubes.forEach((cube, ndx) => {
+                        const speed = .2 + ndx * .1;
+                        const rot = time * speed;
+                        cube.rotation.x = rot;
+                        cube.rotation.y = rot;
+                    });
+
+                    renderer.render(scene, camera);
+
+                    requestAnimationFrame(render);
+                }
+
+                requestAnimationFrame(render);
+            }
+
+            main();
+
+        })
+
+        exmapleInstance.addExample('天空背景', function (page) {
+            'use strict';
+
+            /* global THREE */
+
+            function main() {
+                const canvas = createCanvas(800, 600).node();
+                page.el.appendChild(canvas);
+                const renderer = new THREE.WebGLRenderer({
+                    canvas
+                });
+                renderer.autoClearColor = false;
+
+                const fov = 75;
+                const aspect = 2; // the canvas default
+                const near = 0.1;
+                const far = 100;
+                const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+                camera.position.z = 3;
+
+                const controls = new THREE.OrbitControls(camera, canvas);
+                controls.target.set(0, 0, 0);
+                controls.update();
+
+                const scene = new THREE.Scene();
+
+                {
+                    const color = 0xFFFFFF;
+                    const intensity = 1;
+                    const light = new THREE.DirectionalLight(color, intensity);
+                    light.position.set(-1, 2, 4);
+                    scene.add(light);
+                }
+
+                const boxWidth = 1;
+                const boxHeight = 1;
+                const boxDepth = 1;
+                const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+
+                function makeInstance(geometry, color, x) {
+                    const material = new THREE.MeshPhongMaterial({
+                        color
+                    });
+
+                    const cube = new THREE.Mesh(geometry, material);
+                    scene.add(cube);
+
+                    cube.position.x = x;
+
+                    return cube;
+                }
+
+                const cubes = [
+                    makeInstance(geometry, 0x44aa88, 0),
+                    makeInstance(geometry, 0x8844aa, -2),
+                    makeInstance(geometry, 0xaa8844, 2),
+                ];
+
+                {
+                    const loader = new THREE.CubeTextureLoader();
+                    const texture = loader.load([
+                        'https://threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/pos-x.jpg',
+                        'https://threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/neg-x.jpg',
+                        'https://threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/pos-y.jpg',
+                        'https://threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/neg-y.jpg',
+                        'https://threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/pos-z.jpg',
+                        'https://threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/neg-z.jpg',
+                    ]);
+                    scene.background = texture;
+                }
+
+                function resizeRendererToDisplaySize(renderer) {
+                    const canvas = renderer.domElement;
+                    const width = canvas.clientWidth;
+                    const height = canvas.clientHeight;
+                    const needResize = canvas.width !== width || canvas.height !== height;
+                    if (needResize) {
+                        renderer.setSize(width, height, false);
+                    }
+                    return needResize;
+                }
+
+                function render(time) {
+                    time *= 0.001;
+
+                    if (resizeRendererToDisplaySize(renderer)) {
+                        const canvas = renderer.domElement;
+                        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                        camera.updateProjectionMatrix();
+                    }
+
+                    cubes.forEach((cube, ndx) => {
+                        const speed = 1 + ndx * .1;
+                        const rot = time * speed;
+                        cube.rotation.x = rot;
+                        cube.rotation.y = rot;
+                    });
+
+                    renderer.render(scene, camera);
+
+                    requestAnimationFrame(render);
+                }
+
+                requestAnimationFrame(render);
+            }
+
+            main();
+
+        })
+        exmapleInstance.addExample('equirectangular(360度图)', function (page) {
+            'use strict';
+
+            /* global THREE */
+
+            function main() {
+                const canvas = createCanvas(800, 600).node();
+                page.el.appendChild(canvas);
+                const renderer = new THREE.WebGLRenderer({
+                    canvas
+                });
+                renderer.autoClearColor = false;
+
+                const fov = 75;
+                const aspect = 2; // the canvas default
+                const near = 0.1;
+                const far = 100;
+                const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+                camera.position.z = 3;
+
+                const controls = new THREE.OrbitControls(camera, canvas);
+                controls.target.set(0, 0, 0);
+                controls.update();
+
+                const scene = new THREE.Scene();
+
+                {
+                    const color = 0xFFFFFF;
+                    const intensity = 1;
+                    const light = new THREE.DirectionalLight(color, intensity);
+                    light.position.set(-1, 2, 4);
+                    scene.add(light);
+                }
+
+                const boxWidth = 1;
+                const boxHeight = 1;
+                const boxDepth = 1;
+                const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+
+                function makeInstance(geometry, color, x) {
+                    const material = new THREE.MeshPhongMaterial({
+                        color
+                    });
+
+                    const cube = new THREE.Mesh(geometry, material);
+                    scene.add(cube);
+
+                    cube.position.x = x;
+
+                    return cube;
+                }
+
+                const cubes = [
+                    makeInstance(geometry, 0x44aa88, 0),
+                    makeInstance(geometry, 0x8844aa, -2),
+                    makeInstance(geometry, 0xaa8844, 2),
+                ];
+
+                const bgScene = new THREE.Scene();
+                let bgMesh; {
+                    const loader = new THREE.TextureLoader();
+                    const texture = loader.load(
+                        'https://threejsfundamentals.org/threejs/resources/images/equirectangularmaps/tears_of_steel_bridge_2k.jpg',
+                    );
+                    texture.magFilter = THREE.LinearFilter;
+                    texture.minFilter = THREE.LinearFilter;
+
+                    const shader = THREE.ShaderLib.equirect;
+                    const material = new THREE.ShaderMaterial({
+                        fragmentShader: shader.fragmentShader,
+                        vertexShader: shader.vertexShader,
+                        uniforms: shader.uniforms,
+                        depthWrite: false,
+                        side: THREE.BackSide,
+                    });
+                    material.uniforms.tEquirect.value = texture;
+                    const plane = new THREE.BoxBufferGeometry(2, 2, 2);
+                    bgMesh = new THREE.Mesh(plane, material);
+                    bgScene.add(bgMesh);
+                }
+
+                function resizeRendererToDisplaySize(renderer) {
+                    const canvas = renderer.domElement;
+                    const width = canvas.clientWidth;
+                    const height = canvas.clientHeight;
+                    const needResize = canvas.width !== width || canvas.height !== height;
+                    if (needResize) {
+                        renderer.setSize(width, height, false);
+                    }
+                    return needResize;
+                }
+
+                function render(time) {
+                    time *= 0.001;
+
+                    if (resizeRendererToDisplaySize(renderer)) {
+                        const canvas = renderer.domElement;
+                        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                        camera.updateProjectionMatrix();
+                    }
+
+                    cubes.forEach((cube, ndx) => {
+                        const speed = 1 + ndx * .1;
+                        const rot = time * speed;
+                        cube.rotation.x = rot;
+                        cube.rotation.y = rot;
+                    });
+
+                    bgMesh.position.copy(camera.position);
+                    renderer.render(bgScene, camera);
+                    renderer.render(scene, camera);
+
+                    requestAnimationFrame(render);
+                }
+
+                requestAnimationFrame(render);
+            }
+
+            main();
+
+        })
+    </script>
+</body>
+
+</html>
