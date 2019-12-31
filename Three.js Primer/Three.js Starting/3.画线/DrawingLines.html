@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第一个three.js文件_WebGL三维场景</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            /* 隐藏body窗口区域滚动条 */
+        }
+    </style>
+    <!--引入three.js三维引擎-->
+    <script src="../../three.js/build/three.js"></script>
+    <!-- 引入threejs扩展控件OrbitControls.js -->
+    <script src="../../three.js/examples/js/controls/OrbitControls.js"></script>
+    <!-- 引入obj模型加载库OBJLoader.js -->
+    <script src="../../three.js/examples/js/loaders/OBJLoader.js"></script>
+</head>
+<body>
+    <script>
+        //设置好renderer（渲染器）、scene（场景）和camera（相机）
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
+        camera.position.set(0, 0, 100);
+        camera.lookAt(0, 0, 0);
+
+        var scene = new THREE.Scene();
+
+        //create a blue LineBasicMaterial
+        var material = new THREE.LineBasicMaterial({ color: 0x0000ff });
+
+        var geometry = new THREE.Geometry();
+        geometry.vertices.push(new THREE.Vector3(-10, 0, 0));
+        geometry.vertices.push(new THREE.Vector3(0, 10, 0));
+        geometry.vertices.push(new THREE.Vector3(10, 0, 0));
+        var line = new THREE.Line(geometry, material);
+        scene.add(line);
+        renderer.render(scene, camera);
+    </script>
+</body>
+</html>
