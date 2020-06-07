@@ -1,10 +1,6 @@
-达人课课程地址：http://gitbook.cn/gitchat/column/5b320521bebc3c4bd7e72436
 
-本人博客地址：https://blog.csdn.net/qq_30100043
 
-个人网站地址：http://www.wjceo.com
-
-# Three.js达人课相关案例
+## Three.js相关案例
 
 案例查看地址：
 
