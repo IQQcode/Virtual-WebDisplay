@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tips</title>
+  <style>
+    body {
+      overflow: hidden;
+      /* 隐藏body窗口区域滚动条 */
+    }
+  </style>
+  <!--引入three.js三维引擎-->
+  <script src="js/three.js"></script>
+  <!-- 引入threejs扩展控件OrbitControls.js -->
+  <script src="js/controls/OrbitControls.js"></script>
+  <script src="./data.js"></script>
+  <script src="./fun.js"></script>
+</head>
+
+<body>
+
+  <script>
+    /**
+     * 创建场景对象
+     */
+    var scene = new THREE.Scene();
+    var texLoader = new THREE.TextureLoader();
+    //粒子背景
+    var cloud = cloudFun()
+    scene.add(cloud)
+    var intersectsArr = []
+    // 创建太阳系行星和轨迹
+    let Data = data()
+    var sun = createSphereMesh(Data.sun.R, Data.sun.URL);
+    sun.name = Data.sun.name;
+    intersectsArr.push(sun)
+    scene.add(sun)
+    var planetGroup = new THREE.Group();
+    scene.add(planetGroup);
+    Data.planet.forEach(function(obj) {
+      var planet = null;
+      if (obj.ring) {
+        planet = createringPlanetMesh(obj.sphere.R, obj.sphere.URL, obj.ring.r, obj.ring.R, obj.ring.URL)
+      } else {
+        planet = createSphereMesh(obj.R, obj.URL);
+      }
+      planet.revolutionR = obj.revolutionR;
+      planet.angle = 2 * Math.PI * Math.random();
+      planet.name = obj.name;
+      planetGroup.add(planet);
+      intersectsArr.push(planet)
+      var line = circle(obj.revolutionR);
+      scene.add(line);
+    })
+    /**
+     * 相机设置
+     */
+    var width = window.innerWidth; //窗口宽度
+    var height = window.innerHeight; //窗口高度
+    var k = width / height; //窗口宽高比
+    var s = 310; //三维场景缩放系数
+    //创建相机对象
+    var camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1500);
+    camera.position.set(651, 613, 525); //设置相机位置
+    camera.lookAt(scene.position); //设置相机方向(指向的场景对象)
+    /**
+     * 光源设置
+     */
+    //点光源
+    var point = new THREE.PointLight(0xffffff);
+    point.position.set(400, 200, 300); //点光源位置
+    scene.add(point); //点光源添加到场景中
+
+    //环境光
+    var ambient = new THREE.AmbientLight(0x444444);
+    scene.add(ambient);
+
+    /**
+     * 创建渲染器对象
+     */
+    var renderer = new THREE.WebGLRenderer({
+      antialias: true
+    });
+    renderer.setSize(width, height);
+    renderer.setClearColor(0x101010, 1); //设置背景颜色
+    document.body.appendChild(renderer.domElement); //body元素中插入canvas对象
+
+    var chooseMesh = null;
+
+    function render() {
+      sun.rotation.y += 0.01;
+      renderer.render(scene, camera); //执行渲染操作
+      planetGroup.children.forEach(function(obj) {
+        obj.rotation.y += 0.01;
+        obj.angle += 0.005 / obj.revolutionR * 400;
+        obj.position.set(obj.revolutionR * Math.sin(obj.angle), 0, obj.revolutionR * Math.cos(obj.angle));
+      })
+      cloud.rotation.x += 0.0002;
+      cloud.rotation.y += 0.0002;
+      cloud.rotation.z += 0.0002;
+
+      requestAnimationFrame(render);
+      // console.log(camera.position);
+      if (chooseMesh) {
+        var worldVector = new THREE.Vector3(
+          chooseMesh.position.x,
+          chooseMesh.position.y,
+          chooseMesh.position.z
+        );
+        var standardVector = worldVector.project(camera); //世界坐标转标准设备坐标
+        var a = window.innerWidth / 2;
+        var b = window.innerHeight / 2;
+        var x = Math.round(standardVector.x * a + a); //标准设备坐标转屏幕坐标
+        var y = Math.round(-standardVector.y * b + b); //标准设备坐标转屏幕坐标
+
+        img.style.left = x + 'px';
+        img.style.top = y -280+ 'px';
+      }
+    }
+    render();
+    var controls = new THREE.OrbitControls(camera); //创建控件对象
+
+    var img = document.createElement("img");
+    document.body.appendChild(img)
+    img.style.position = 'absolute';
+    img.style.display = 'block';
+
+     // 下面是单击行星交互的代码
+     // 代码中关于射线拾取和模型标签知识可以参考下面两篇文章
+     // 射线拾取：https://blog.csdn.net/u014291990/article/details/103213627
+     // 模型标签：http://www.yanhuangxueyuan.com/Three.js_course/advanced/modelTag.html
+    function choose(event) {
+      img.src = '';
+      chooseMesh = null;
+      var Sx = event.clientX;
+      var Sy = event.clientY;
+      //屏幕坐标转标准设备坐标
+      var x = (Sx / window.innerWidth) * 2 - 1;
+      var y = -(Sy / window.innerHeight) * 2 + 1;
+
+      var raycaster = new THREE.Raycaster();
+      raycaster.setFromCamera(new THREE.Vector2(x, y), camera);
+      var intersects = raycaster.intersectObjects(intersectsArr, false);
+      if (intersects.length > 0) {
+        console.log(intersects[0].object.name);
+        img.src = './UI/标签/' + intersects[0].object.name + '.png';
+        chooseMesh = intersects[0].object
+      }
+    }
+    addEventListener('click', choose); // 监听窗口鼠标单击事件
+    addEventListener('mousemove', choose); // 监听窗口鼠标单击事件
+  </script>
+</body>
+
+</html>

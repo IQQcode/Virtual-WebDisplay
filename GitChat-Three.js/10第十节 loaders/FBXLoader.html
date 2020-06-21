@@ -81,7 +81,6 @@
     }
 
     function initModel() {
-
         //底部平面
         var planeGeometry = new THREE.PlaneGeometry(100, 100);
         var planeMaterial = new THREE.MeshLambertMaterial({ color: 0xaaaaaa, side: THREE.DoubleSide });
@@ -103,7 +102,6 @@
             });
             scene.add(fbx);
         });
-
     }
 
     function initStats() {
@@ -148,9 +146,7 @@
         initLight();
         initModel();
         initStats();
-
         initControl();
-
         animate();
         window.onresize = onWindowResize;
     }

@@ -3,7 +3,7 @@ function createMesh(geometry, URL) { // R半径,图片URL路径
   // Lambert
   var material = new THREE.MeshBasicMaterial({ //MeshLambertMaterial
     map: texLoader.load(URL),
-    side:THREE.DoubleSide,
+    side: THREE.DoubleSide,
   }); //材质对象
   var mesh = new THREE.Mesh(geometry, material); //网格模型对象
   return mesh;
